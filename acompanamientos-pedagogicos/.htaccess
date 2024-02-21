@@ -1,0 +1,12 @@
+RewriteEngine on
+
+RewriteBase /acompanamientos-pedagogicos
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+
+RewriteRule ^([A-Za-z0-9]+)/presentacion/([A-Za-z0-9-]+)-([0-9]+)$ index.php?cat=19746&rowID=$3&lang=$1 [L]
+RewriteRule ^([A-Za-z0-9]+)/pelicula/([A-Za-z0-9-]+)-([0-9]+)$ content.php?cat=19747&rowID=$3&lang=$1 [L]
+RewriteRule ^([A-Za-z0-9]+)/contexto/([A-Za-z0-9-]+)-([0-9]+)$ content.php?cat=19748&rowID=$3&lang=$1 [L]
+RewriteRule ^([A-Za-z0-9]+)/cultura-y-sociedad/([A-Za-z0-9-]+)-([0-9]+)$ culture.php?cat=19749&rowID=$3&lang=$1 [L]
+
+RewriteRule ^([A-Za-z0-9]+)/Infografia/([A-Za-z0-9-]+)-([0-9]+)/([0-9]+)$ infographic.php?cat=19749&rowID=$3&i=$4&lang=$1 [L]

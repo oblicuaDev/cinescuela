@@ -1,0 +1,1329 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+	background-color: #f6f1eb;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 1em;
+	height: 100vh;
+	position: relative;
+    text-align: center;
+} 
+.back{
+    background-image: url(../images/play2.png);
+    background-repeat: no-repeat;
+    background-position: center -417px;
+    background-size: 105px;
+    position: absolute;
+    height: 40px;
+    left: 6%;
+    top: 12%;
+    width: 40px;
+    z-index: 9;
+}
+.back:hover{
+	background-position: center -467px;
+}
+.font2{
+    font-family:candara;
+}
+.font3, .font3 p{
+    font-family:Myriad Pro;	
+}
+a{
+    text-decoration: none;
+}
+li{
+	list-style: none;
+}
+.outter
+{
+	width:100%;
+}
+.none{
+    display: none;
+}
+.ageneral{
+	display: inline-block;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 7;
+}
+.activeMovies .ageneral{
+    background-image: url(../images/play3.png);
+    background-repeat: no-repeat;
+    background-position: 180px 10px;
+    background-size: 16%;
+    
+    -ms-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}
+.activeMovies .ageneral:hover{
+    opacity: 0.8;
+     -ms-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}
+/* Every save zone container should have .container class */
+.container
+{
+	margin:0 auto;
+	position:relative;
+	overflow:hidden;
+	max-width:1280px;
+    width:100%;
+}
+.basic_background{
+	background-repeat:no-repeat;
+	background-position:center center;
+	background-size: 100% 100%;
+	}
+.generalimg{
+    height: 100%;
+}
+/* Start header*/
+header{
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0px 7px 21px #888888;
+    width: 100%;
+    z-index: 998;
+}
+.menu{
+	display: inline-block;
+    overflow: visible;
+    width: 79%;
+}
+.logo{
+    background-size: 95%;
+    display: inline-block;
+    float: left;
+    height: 30px;
+    margin: 10px 25px;
+    width: 170px;
+}
+header ul li{
+    float: right;
+    height: 30px;
+    margin: 10px 25px;
+	position: relative;
+    list-style: none;
+}
+header ul li:nth-child(2)::after{
+    background-color: #000;
+    content: "";
+    display: inline-block;
+    height: 26px;
+    margin-top: 0;
+    left: -26px;
+    position: absolute;
+	top: 2px;
+    width: 1px;
+}
+header ul li a{
+    color: #000;
+    display: inline-block;
+    font-size: 0.9em;
+	vertical-align: sub;
+    
+    -ms-transition: background-color 0.5s, color 0.5s;
+    -moz-transition: background-color 0.5s, color 0.5s;
+    -o-transition: background-color 0.5s, color 0.5s;
+    -webkit-transition: background-color 0.5s, color 0.5s;
+    transition: background-color 0.5s, color 0.5s;
+}
+header ul li a::after{
+    background-color: #fff;
+    content: "";
+    display: block;
+    height: 2px;
+    margin-top: 4px;
+    width:100%;
+    
+    -ms-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    -webkit-transition: background-color 0.5s;
+    transition: background-color 0.5s;  
+}
+header ul li a:hover, header ul li a.active, .active2{
+    color: #00664b; 
+    
+    -ms-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    -o-transition: color 0.5s;
+    -webkit-transition: color 0.5s;
+    transition: color 0.5s;
+}
+header ul li a:hover::after, header ul li a.active::after{
+    background-color: #00664b;
+    content: "";
+    display: block;
+    height: 2px;
+    margin-top: 4px;
+    width:100%;
+    
+    -ms-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    -webkit-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+}
+/* End header*/
+
+/* Start Log In*/
+.filter{
+    background:url(../images/overlay1.png) top left repeat, -webkit-linear-gradient(rgba(0,48,64,0.7) 0%, rgba(0,64,48,0.7) 100%);
+    background:url(../images/overlay1.png) top left repeat, -o-linear-gradient(rgba(0,48,64,0.7) 0%, rgba(0,64,48,0.7) 100%);
+    background:url(../images/overlay1.png) top left repeat, -ms-linear-gradient(rgba(0,48,64,0.7) 0%, rgba(0,64,48,0.7) 100%);
+    background:url(../images/overlay1.png) top left repeat, -moz-linear-gradient(rgba(0,48,64,0.7) 0%, rgba(0,64,48,0.7) 100%);
+    background:url(../images/overlay1.png) top left repeat, linear-gradient(rgba(0,48,64,0.7) 0%, rgba(0,64,48,0.7) 100%);
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+.filter2{
+    background-color: transparent;
+    background-image: url(../images/overlay1.png);    
+}
+.loginpath{
+	height: 100vh;
+    position: relative;
+}
+.login{
+    position: absolute;
+    left: 50%;
+    -o-transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
+    -ms-transform: translate(-50%,0);
+    -webkit-transform: translate(-50%,0);
+    transform: translate(-50%,0);
+    text-align: center;
+    width: 445px;
+    top: 25%;
+    z-index: 5;
+}
+.login h2{
+    background-size: 460px;
+    display: inline-block;
+    height: 70px;
+    margin: 40px 0;
+    width: 410px;
+}
+.login form .feedback{
+    color: darkorange;
+    font-size: 1.1em;
+    padding: 6px 0;
+	position: absolute;
+    font-size: 0.9em;
+}
+.login form #feedback{
+	color: darksalmon;
+    display: block;
+    left: 0;
+    position: relative;
+	top: 0;
+}
+.login form #feedback1{
+	left: 165px;
+	top: 150px;
+}
+.login form #feedback2{
+    left: 154px;
+    top: 224px;
+}.login form #feedback3{
+	text-align: left;
+    top: 120px;
+}
+.login form p{
+    display: inline-block;
+    width: 72%;
+}
+.login form p span, .message_sincro p{
+    color: #fff;
+    display: block;
+    padding: 0 7px;
+    text-align: left;    
+    width: 100%;
+}
+.login form p input{
+    background-color: rgba(255,255,255,0.8);
+    border: none;
+    margin: 11px 0;
+    padding: 9px 25px;
+    width: 85%;
+}
+.login form .fpasword a{
+    color: #fff;
+    display: block;
+    font-size: 0.8em;
+    padding: 3px 0 0;
+    text-align: right;
+	text-decoration: underline;
+
+    -ms-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    -o-transition: color 0.5s;
+    -webkit-transition: color 0.5s;
+    transition: color 0.5s;
+}
+.login form .fpasword a:hover, .login form .fpasword a.active{
+    color: cadetblue;
+    
+    -ms-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    -o-transition: color 0.5s;
+    -webkit-transition: color 0.5s;
+    transition: color 0.5s;
+}
+
+::-webkit-input-placeholder {
+    color: #545454;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+:-moz-placeholder { 
+   color: #545454;
+   font-family: Georgia, "Times New Roman", Times, serif;
+   opacity:  1;
+}
+::-moz-placeholder {
+   color: #545454;
+   font-family: Georgia, "Times New Roman", Times, serif;
+   opacity:  1;
+}
+:-ms-input-placeholder { 
+   color: #545454;
+   font-family: Georgia, "Times New Roman", Times, serif;
+}
+.button{
+    background-color: #00664b;
+    border: 1px solid #00664b;
+    border-radius: 6px;
+    color: #fff;
+	display: inline-block;
+    font-size: 1em;
+    margin: 20px;
+    padding: 6px 21px;
+    
+    -ms-transition: background-color 0.5s, color 0.5s;
+    -moz-transition: background-color 0.5s, color 0.5s;
+    -o-transition: background-color 0.5s, color 0.5s;
+    -webkit-transition: background-color 0.5s, color 0.5s;
+    transition: background-color 0.5s, color 0.5s;
+}
+.button:hover, .button.active{
+    background-color: #fff;
+    color: #00664b;
+    
+    -ms-transition: background-color 0.5s, color 0.5s;
+    -moz-transition: background-color 0.5s, color 0.5s;
+    -o-transition: background-color 0.5s, color 0.5s;
+    -webkit-transition: background-color 0.5s, color 0.5s;
+    transition: background-color 0.5s, color 0.5s;
+}
+.button2{
+    background-color: transparent;
+    border: 1px solid #00664b;
+    border-radius: 6px;
+    color: #00664b;
+    margin: 23px 20px 0 20px;
+    
+    -ms-transition: background-color 0.5s, color 0.5s;
+    -moz-transition: background-color 0.5s, color 0.5s;
+    -o-transition: background-color 0.5s, color 0.5s;
+    -webkit-transition: background-color 0.5s, color 0.5s;
+    transition: background-color 0.5s, color 0.5s;    
+}
+.button2:hover, .button2.active{
+    background-color: #00664b;
+    color: #fff;
+    
+    -ms-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    -webkit-transition: background-color 0.5s;
+    transition: background-color 0.5s
+}
+.button2 a{
+    color: #00664b;
+    display: inline-block;
+    font-weight: bold;
+	padding: 7px 15px 7px 37px;
+    text-decoration:none;
+    
+    -ms-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    -o-transition: color 0.5s;
+    -webkit-transition: color 0.5s;
+    transition: color 0.5s;
+}
+.button2:hover a, .button2.active a{
+    color: #fff;  
+    
+    -ms-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    -o-transition: color 0.5s;
+    -webkit-transition: color 0.5s;
+    transition: color 0.5s;
+}
+
+/* end Log In*/
+/* Start Peliculas Activas*/
+/*
+.activeMovies{
+	height: 900px;
+}
+*/
+.activeMovies, .catalogList, .intmovie{
+	margin-bottom: 30px;
+}
+.activeMovies h3{
+    padding: 40px 0 14px;	
+}
+.activeMovies ul .warning{
+    color: #00664b;
+    float: right;
+	font-size: 0.9em;
+    margin-right: 20px;
+    margin-top: 35px;
+    text-align: right;
+    width: 36%;
+}
+.activeMovies ul .warning span{
+    background-position: center -62px;
+    background-size: 24px;
+	height: 13px;
+	position: relative;
+	top: auto;
+	left: auto;
+	width: 14px; 
+    vertical-align: middle;
+}
+.activeMovies ul .warning:hover span{
+    background-position: center -62px;	
+}
+.activeMovies ul, .catalogList ul{
+    text-align: left;
+	max-width: 1127px;
+}
+.activeMovies ul li, .catalogList ul li{
+    display: inline-block;
+	position: relative;
+}
+.activeMovies ul li span, .sincro{
+    background-position: center -28px;
+    background-size:cover;
+    display: inline-block;
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: middle;
+    width: 16px;
+}
+.activeMovies .ready{
+    background-image: url(../images/play2.png);
+    background-repeat: no-repeat;
+    background-position: center -181px;
+    background-size: 51px;
+    display: inline-block;
+    height: 15px;
+    right: 5px;
+    position: absolute;
+    top: 14px;
+    width: 15px;
+}
+.activeMovies ul li span{
+	position: absolute;
+    top: 7px;
+    left: 12px;
+}
+.activeMovies ul li:hover span, .activeMovies ul li.active span{
+    background-position: center -1px;
+}
+.ciclo{
+	font-weight: 600;
+}
+/* End Peliculas Activas*/
+
+/* Start Lista de peliculas*/
+.listmovies{
+/*    height: 620px;*/
+    margin-top: 0;
+    padding-bottom: 25px;
+    overflow: hidden;
+}
+.listmovies article{
+    background-color: #fff;
+    display: inline-block;
+    height: 325px;
+    margin: 9px 8px;
+    max-width: 20%;
+    min-width: 230px;
+    position: relative;
+    text-align: right;
+	vertical-align: top;
+}
+.listmovies article figure{
+    height: 127px;
+	position: relative;
+}
+.sincro{
+    background-position: center -46px; 
+    display: inline-block;
+    height: 19px;
+    margin: 12px 6px;
+	position: relative;
+    width: 14px;
+}
+.sincro:hover, .sincro.active{
+    background-position: center -23px;   
+}
+
+.infomovie .mCustomScrollBox .mCSB_scrollTools{
+right: 2px;	
+}
+.info{
+    text-align: left;   
+}
+.info h3, .info p, .anio{
+    font-size: 0.8em;
+    padding: 3px 13px;
+}
+.info h3 a{
+    color: #00664b;
+    display: block;
+    
+    -ms-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    -o-transition: color 0.5s;
+    -webkit-transition: color 0.5s;
+    transition: color 0.5s;
+}
+.info h3 a:hover, .info h3 a.active{
+    color: #000;
+    text-decoration: underline;
+    
+    -ms-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    -o-transition: color 0.5s;
+    -webkit-transition: color 0.5s;
+    transition: color 0.5s;
+}
+.info .text, .info .text p{
+    font-size: 0.7em;
+}
+.listmovies .button2{
+    background-color: #00664b;
+    border-radius: 3px;
+    bottom: 0;
+    color: #fff;
+    display: inline-block;
+    font-size: 0.7em;
+    margin: 6px 6px 8px;
+    padding: 3px 7px;
+    position: absolute;
+    right: 0;
+}
+.listmovies .button2:hover{
+	color: #00664b;
+	background-color: transparent;
+}
+.sincrobar{
+    height: 43px;
+	margin-top: 4px;
+    position: relative;
+}
+.sincrobar .ex{
+    background-position: center -95px;
+    height: 10px;
+    display: inline-block;
+    position: absolute;
+    right: 37px;
+    top: 5px;
+    width: 10px;
+}
+.sincrobar .ex:hover, .sincrobar .ex.active{
+    background-position: center -113px;
+}
+.sincrobar p{
+    color: #333;
+    font-size: 0.7em;
+    left: 14px;
+    position: absolute;
+    top: 5px;
+}
+.sincrobar .advert{
+    color: #a1a1a1;
+    font-size: 0.7em;
+    height: 43px;
+    right: auto;
+    left: 12px;
+    top: 28px;
+}
+.bar { 
+    background: #d1d1d1;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    height: 6px;
+    position: absolute;
+    top: 19px;
+    left: 12px;
+    width: 77%;
+}
+.bar > span {
+    display: block;
+    height: 100%;
+    border-radius:3px;
+    background-color:#00664b;
+    overflow: hidden;
+}
+input[type=checkbox] {
+    visibility: hidden;
+}
+.check{
+    height: 15px;
+    position: absolute;
+    right: 11px;
+    top: 5px;
+    width: 15px;
+}
+.check label{
+    background-color: #fff;  
+    border: 1px solid #000;
+    cursor: pointer;
+    height: 17px;
+    left: 0;
+    position: absolute;
+    top: 0px;
+    width: 17px;
+}
+.check label:after{
+    content: '';
+    position: absolute;
+    width: 9px;
+    height: 5px;
+    background-color: transparent;
+    top: 3px;
+    left: 3px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-right: none;
+    transform: rotate(-45deg);
+}
+.check input[type=checkbox]:checked + label{
+    background-color: #00664b;
+    border: 1px solid #000;
+	;
+}
+/* End Lista de peliculas*/
+
+/* Start paginado*/
+.activeMovies .pages, .catalogList .pages{
+    display: block;
+    margin: 20px auto 6px auto;
+    text-align: center;
+}
+.pages .back2 a{
+ transform: rotateY(172deg);
+}
+.pages .next a, .pages .back2 a{
+	background-position: center -47px;
+	background-color: #00664b;
+	background-size: 10px; 
+}
+
+.pages li{
+    vertical-align: middle;
+}
+.pages li .pageStyle{
+    background-color: #fff;
+    color: #00664b;
+    display: block;
+    height: 18px;
+    padding: 4px;
+    text-align: center;
+    width: 18px;
+    -ms-transition: color 0.5s, background-color 0.5s;
+    -moz-transition: color 0.5s, background-color 0.5s;
+    -o-transition: color 0.5s, background-color 0.5s;
+    -webkit-transition: color 0.5s, background-color 0.5s;
+    transition: color 0.5s, background-color 0.5s
+}
+
+.pages li .active3{
+    background-color: #00664b;
+    color: #fff;
+    display: block;
+    height: 18px;
+    padding: 4px;
+    text-align: center;
+    width: 18px;
+    -ms-transition: color 0.5s, background-color 0.5s;
+    -moz-transition: color 0.5s, background-color 0.5s;
+    -o-transition: color 0.5s, background-color 0.5s;
+    -webkit-transition: color 0.5s, background-color 0.5s;
+    transition: color 0.5s, background-color 0.5s
+}
+
+.pages li .pageStyle:hover, .pages li a.active{
+    background-color: #00664b;
+    color: #fff;
+    -ms-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    -webkit-transition: background-color 0.5s;
+    transition: background-color 0.5s
+}
+/* End paginado*/
+
+/* Start Cataolo de peliculas*/
+.title{
+	color: #00664b;
+	font-size: 1.9em;
+	padding: 45px 0 20px;
+	text-transform: uppercase;
+}
+.catalogList article .info{
+    margin-top: 13px;
+}
+/* End Cataolo de peliculas*/
+
+/* Startinterna pelicula */
+.intmovie{
+	margin: 0 auto 30px auto;
+	position: relative;
+}
+.intmovie .title{
+    padding: 30px 0 20px;
+}
+.scroll{
+	height: 476px;
+    margin-top: 16px;
+}
+.intmovie .infomovie{
+	max-width: 1080px;
+	margin: 0 auto;
+	position: relative;
+	width: 760px;
+}
+.intmovie .info p{
+	color: #666666;
+    font-size: 1em;
+    padding: 8px 3px;
+}
+.intmovie .info p strong{
+	margin-right:2px;
+}
+.intmovie .sincrobar{
+	margin: 0;
+	overflow: visible;
+}
+.intmovie .sincrobar .bar{
+    display: inline-block;
+    float: left;
+    left: auto;
+    margin: 10px 13px 3px 0;
+    position: relative;
+    top: auto;
+	width: 89%;
+}
+.intmovie .sincrobar .ex{
+	background-position: center -114px;
+	height: 12px;
+	position: relative;
+	right: 11px;
+	top: 2px;
+	width: 12px;
+}
+.showHover{
+	display: none;
+}
+
+.ex:hover .showHover, .sincro:hover .showHover, .t_show:hover .showHover{
+    background-color: #c7c7c7;
+    bottom: -29px;
+    color: #fff;
+    display: block;
+    font-size: 0.7em;
+    padding: 3px;
+    position: absolute;
+    right: -4px;
+    text-align: center;
+    width: 125px;
+    z-index: 10;
+}
+.t_show:hover .showHover{
+    background-color: #00664b;
+    bottom: 6px;
+	right: 110px;
+}
+header li:nth-child(2):hover .showHover{
+    bottom: -39px;
+    right: 66px;
+    width: 170px;
+}
+.sincro:hover .showHover{
+    width: 62px;	
+}
+.ex:hover .showHover:before, .sincro:hover .showHover:before, header li:nth-child(2):hover  .showHover:before{
+	bottom: 100%;
+	left: 45%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+header li:nth-child(2):hover .showHover:before{
+    border-bottom-color: #00664b;
+    border-width: 7px;
+    margin-left: 0px;
+    left: 92%;
+    top: -42%;
+}
+.t_show:hover .showHover:before{
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	left: 100%;
+	position: absolute;
+	pointer-events: none;
+	top: 43%;
+	width: 0;
+    border-bottom-color: #00664b;
+	border-left-color: #00664b;
+	border-width: 5px;
+	margin-top: -1px;
+}
+.ex:hover .showHover:before, .sincro:hover .showHover:before{
+    border-bottom-color: #c7c7c7;
+	border-width: 7px;
+    margin-left: 52px;
+}
+.sincro:hover .showHover:before{
+	margin-left: 22px;
+}
+.intmovie .sincrobar .ex:hover, .intmovie .sincrobar .ex.active{
+	background-position: center -136px;
+}
+.intmovie .sincrobar p{
+    display: inline-block;
+    float: left;
+	font-size: 0.8em;
+	left: auto;
+    padding: 3px 0;
+    position: relative;
+    top: auto;
+}
+.intmovie .sincrobar .advert{
+	display: block;
+	left: auto;
+	text-align: left;
+}
+.intmovie .sincro{
+	background-position: center -75px;
+	height: 32px;
+	position: absolute;
+	right: -10px;
+	top: -19px;
+    width: 23px;
+}
+.intmovie .sincro:hover, .intmovie .sincro.active{
+	background-position: center -38px;	
+}
+.intmovie figure{
+    display: inline-block;
+    height: 427px;
+    margin: 21px 0;
+	position: relative;
+}
+.intmovie video{
+    bottom: -3px;
+	height: 100%;
+    left: 0;
+    position: relative;
+    width: 760px;
+}
+.intmovie figure .play{	
+    background-position: center -89px;
+    background-size: cover;
+	height: 80px;
+	left: 50%;
+	margin-top: -40px;
+    position: absolute;
+    top: 38%;
+    width: 71px;
+	
+	-o-transform: translate(-50%,0);
+    -moz-transform: translate(-50%,0);
+    -ms-transform: translate(-50%,0);
+    -webkit-transform: translate(-50%,0);
+    transform: translate(-50%,0);
+    
+    -ms-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}
+.intmovie figure .play:hover{
+    opacity: 0.8;
+    
+    -ms-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}
+.intmovie .contPedag{
+	display: block;
+	text-align: left;
+}
+.intmovie .contPedag .button{
+    display: inline-block;
+    margin: 20px 23px 20px 0px;
+}
+.intmovie .contPedag .button a{
+	color: #fff;
+}
+.intmovie .contPedag .button:hover{
+	background-color: transparent;
+}
+.intmovie .contPedag .button:hover a{
+	color: #00664b;	
+}
+/* End interna pelicula*/
+
+/* Start Footer*/
+footer{
+    background-color: #fff;
+    bottom: 0;
+    text-align: left;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+footer.intfooter{
+	display: none;
+	background-color: #00664b;
+}
+footer p{
+    color: #00664b;
+    font-size: 0.7em;
+    padding: 7px 0 7px 7%;
+    width: 80%;
+}
+footer.intfooter p{
+	color: #fff;
+}
+/* End Footer*/
+
+/* basic scrollbar styling */
+/* vertical scrollbar */
+.mCSB_container{
+	width:auto;
+	overflow:hidden;
+}
+.mCSB_container.mCS_no_scrollbar{
+	margin-right:0;
+}
+.mCustomScrollBox .mCSB_scrollTools{
+/*    display: block !important; */
+    height: 100%;
+    right: 4px;
+    top: 0;
+    width: 6px;
+}
+.mCSB_scrollTools .mCSB_draggerContainer{
+	height:100%;
+}
+.mCSB_scrollTools .mCSB_buttonUp+.mCSB_draggerContainer{
+}
+.mCSB_scrollTools .mCSB_draggerRail{
+	border-radius:3px;
+	width:8px;
+	height:100%;
+	margin:0 auto;
+}
+.mCSB_scrollTools .mCSB_dragger{
+	cursor:pointer;
+	width:100%;
+	height:30px;
+}
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+	width:8px;
+	height:100%;
+	margin:0 auto;
+	border-radius:5px;
+	text-align:center;
+}
+.mCSB_scrollTools .mCSB_buttonUp,
+.mCSB_scrollTools .mCSB_buttonDown{
+	height:20px;
+	overflow:hidden;
+	margin:0 auto;
+	cursor:pointer;
+}
+.mCSB_scrollTools .mCSB_buttonDown{
+	bottom:0;
+	margin-top:-40px;
+}
+/* horizontal scrollbar */
+.mCSB_horizontal .mCSB_container{
+	height:auto;
+	margin-right:0;
+	margin-bottom:30px;
+	overflow:hidden;
+}
+.mCSB_horizontal .mCSB_container.mCS_no_scrollbar{
+	margin-bottom:0;
+}
+.mCSB_horizontal.mCustomScrollBox .mCSB_scrollTools{
+	width:100%;
+	height:16px;
+	top:auto;
+	right:auto;
+	bottom:0;
+	left:0;
+	overflow:hidden;
+}
+.mCSB_horizontal .mCSB_scrollTools .mCSB_draggerContainer{
+height:100%;
+width:auto;
+overflow:hidden;
+}
+.mCSB_horizontal .mCSB_scrollTools .mCSB_buttonLeft+.mCSB_draggerContainer{
+padding-bottom:0;
+padding-right:20px;
+}
+.mCSB_horizontal .mCSB_scrollTools .mCSB_draggerRail{
+width:100%;
+height:2px;
+margin:7px 0;
+}
+.mCSB_horizontal .mCSB_scrollTools .mCSB_dragger{
+width:30px;
+height:100%;
+}
+.mCSB_horizontal .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+width:100%;
+height:4px;
+margin:6px auto;
+}
+.mCSB_horizontal .mCSB_scrollTools .mCSB_buttonLeft,
+.mCSB_horizontal .mCSB_scrollTools .mCSB_buttonRight{
+width:20px;
+height:100%;
+overflow:hidden;
+margin:0 auto;
+cursor:pointer;
+float:left;
+}
+.mCSB_horizontal .mCSB_scrollTools .mCSB_buttonRight{
+right:0;
+bottom:auto;
+margin-left:-40px;
+margin-top:-16px;
+float:right;
+}
+/* default scrollbar colors and backgrounds */
+.mCustomScrollBox .mCSB_scrollTools{
+}
+.mCustomScrollBox:hover .mCSB_scrollTools{
+}
+.mCSB_scrollTools .mCSB_draggerRail{
+background:#cfcfcf;
+}
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+background:#00664b;
+}
+.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar{
+background:#00664b;
+}
+.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
+background:#999;
+}
+.mCSB_scrollTools .mCSB_buttonUp,
+.mCSB_scrollTools .mCSB_buttonDown,
+.mCSB_scrollTools .mCSB_buttonLeft,
+.mCSB_scrollTools .mCSB_buttonRight{
+background-image:url(mCSB_buttons.png);
+background-repeat:no-repeat;
+}
+.mCSB_scrollTools .mCSB_buttonUp{
+background-position:0 0;
+/*
+sprites locations are 0 0/-16px 0/-32px 0/-48px 0 (light) and -80px 0/-96px 0/-112px 0/-128px 0 (dark)
+*/
+}
+.mCSB_scrollTools .mCSB_buttonDown{
+background-position:0 -20px;
+/*
+sprites locations are 0 -20px/-16px -20px/-32px -20px/-48px -20px (light) and -80px -20px/-96px -20px/-112px -20px/-128px -20px (dark)
+*/
+}
+.mCSB_scrollTools .mCSB_buttonLeft{
+background-position:0 -40px;
+/*
+sprites locations are 0 -40px/-20px -40px/-40px -40px/-60px -40px (light) and -80px -40px/-100px -40px/-120px -40px/-140px -40px (dark)
+*/
+}
+.mCSB_scrollTools .mCSB_buttonRight{
+background-position:0 -56px;
+/*
+sprites locations are 0 -56px/-20px -56px/-40px -56px/-60px -56px (light) and -80px -56px/-100px -56px/-120px -56px/-140px -56px (dark)
+*/
+}
+.mCSB_scrollTools .mCSB_buttonUp:hover,
+.mCSB_scrollTools .mCSB_buttonDown:hover,
+.mCSB_scrollTools .mCSB_buttonLeft:hover,
+.mCSB_scrollTools .mCSB_buttonRight:hover{
+}
+.mCSB_scrollTools .mCSB_buttonUp:active,
+.mCSB_scrollTools .mCSB_buttonDown:active,
+.mCSB_scrollTools .mCSB_buttonLeft:active,
+.mCSB_scrollTools .mCSB_buttonRight:active{
+} 
+
+
+
+/*Basic UI selectmenu Styles*/
+.ui-menu
+{
+	font-size:1.5em;
+	color:#DEB767;
+	letter-spacing:1px;
+	
+
+}
+.ui-menu .ui-menu-item
+{
+	background:#111;
+	color:#FFF;
+}
+.ui-menu .ui-menu-item div
+{
+	padding-left:20px;
+}
+.ui-menu .ui-menu-item .ui-state-active
+{
+	background:#DEB767;
+	color:#111;
+}
+.ui-selectmenu-button
+{
+	border:1px solid #DEB767;
+	color:#DEB767;
+	font-weight:400;
+	font-size:1.4em;
+	letter-spacing:1px;
+}
+.ui-selectmenu-button .ui-selectmenu-icon
+{
+	box-sizing:border-box;
+	color:#FFF;
+	height:15px;
+	position:relative;
+	top:3px;
+	width:15px;
+}
+.ui-selectmenu-button .ui-selectmenu-icon::after
+{
+	
+}
+.ui-selectmenu-button-closed .ui-selectmenu-icon
+{
+	
+}
+.ui-selectmenu-button-open .ui-selectmenu-icon
+{
+	transform:scale(1,-1);
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active
+{
+    background:#FFF;
+    border:2px solid #CCC;
+    border-radius:0;
+}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus, .ui-button:hover, .ui-button:focus
+{
+    background:#FFF;
+    border:2px solid #CCC;
+    border-radius:0;
+}
+
+#preloader_cargar, #preloader_sinConexion{
+    background: #ffffff;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    text-align: center;
+    z-index: 999;
+    display: none;
+}
+
+#preloader_cargar img{
+    margin-top: 21%;
+}
+
+#preloader_sinConexion img{
+    margin-top: 28%;
+}
+#session{
+    font-size: 0.7em;
+}
+
+#preloader_play{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    text-align: center;
+    z-index: 999;
+    margin-top: 17%;
+    display: none;
+}
+
+
+
+
+@keyframes sincronizar{
+    0% {
+        -webkit-transform: rotateZ(0deg);
+        -moz-transform: rotateZ(0deg);
+        -o-transform: rotateZ(0deg);
+        -ms-transform: rotateZ(0deg);
+        transform: rotateZ(0deg);
+    }
+    100% {
+        -webkit-transform: rotateZ(-36000deg);
+        -moz-transform: rotateZ(-36000deg);
+        -o-transform: rotateZ(-36000deg);
+        -ms-transform: rotateZ(-36000deg);
+        transform: rotateZ(-36000deg);
+    }
+}
+
+
+
+.btn_sincronizar{
+    -webkit-animation: sincronizar 600s linear 0s infinite alternate;
+    -moz-animation: sincronizar 600s linear 0s infinite alternate;
+    -o-animation: sincronizar 600s linear 0s infinite alternate;
+    -ms-animation: sincronizar 600s linear 0s infinite alternate;
+    animation: sincronizar 600s linear 0s infinite alternate;
+}
+
+
+.response{
+    margin: 40px 0px 5px 0px;
+}
+
+.response span{
+    text-transform: capitalize;
+}
+
+.message_sincro{
+    position: absolute;
+    width: 100%;
+    padding: 10px 5%;
+    background: #00664b;
+    top: 70px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.message_sincro p{
+    display: inline-block;
+    text-align: center;
+}
+
+.message_sincro a{
+    background-color: #ffffff;
+    border-radius: 6px;
+    color: #00664b;
+    margin: 8px 20px 0 20px;
+    padding: 5px 15px;
+    display: inline-block;
+    border: 1px solid #00664b;
+    
+    -ms-transition: background-color 0.5s, color 0.5s;
+    -moz-transition: background-color 0.5s, color 0.5s;
+    -o-transition: background-color 0.5s, color 0.5s;
+    -webkit-transition: background-color 0.5s, color 0.5s;
+    transition: background-color 0.5s, color 0.5s;    
+}
+.message_sincro a:hover{
+    color: #fff;
+    border: 1px solid #ffffff;
+    background: transparent;
+    -ms-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    -webkit-transition: background-color 0.5s;
+    transition: background-color 0.5s;
+}
+
+video::-internal-media-controls-download-button {
+    display:none;
+}
+
+video::-webkit-media-controls-enclosure {
+    overflow:hidden;
+}
+
+video::-webkit-media-controls-panel {
+    width: calc(100% + 30px);
+}
+
+.bx-wrapper .bx-viewport {
+    left: 0px !important;
+}
+
+.articleMovie{
+    position: relative;
+}
+
+.overlayActive{
+    background: rgba(0, 90, 75, 0.9);
+    box-sizing: border-box;
+    color: #ffffff;
+    display: inline-block;
+    font-family: candara;
+    height: 100%;
+    left: 0px;
+    padding: 150px 10px 15px 10px;
+    position: absolute;
+    text-align: center;
+    top: 0px;
+    width: 100;
+    z-index: 998;
+}
+
+.info > p{
+    font-family:Myriad Pro;
+    font-size: 0.7em;
+}
+
+.anio{
+    font-family: Georgia, "Times New Roman", Times, serif !important;
+    font-size: 0.8em !important;
+    padding: 3px 13px !important;
+}
+
+/* END of Basic UI selectmenu Styles*/
