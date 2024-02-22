@@ -32,9 +32,9 @@
 					<select id="select_asignaturas" name="subject">
 						<option value="-1"><?=find_array($json, 45, $lang_ct)?></option>
                         	<?
-							$asignaturas = $oreka->getCollection(18, 'lord', 'upward', 0, 1);
-							for($i=0;$i<count($asignaturas);$i++){ $post = $asignaturas[$i]->$lang_ct; ?>
-                        <option value="<?=$post->rowID?>" <? if($_GET['subject']==$post->rowID){ echo "selected";} ?>><?=$post->name_subject?></option>
+							$asignaturas = $cinescuela->getAsignaturas();
+							for($i=0;$i<count($asignaturas);$i++){ $post = $asignaturas[$i]; ?>
+                        <option value="<?=$post->id?>" <? if($_GET['subject']==$post->id){ echo "selected";} ?>><?=$post->title->rendered?></option>
                             <? } ?>
 					</select>
                     </form>
@@ -44,9 +44,9 @@
 					<select id="select_etiquetas" name="topic">
 						<option value="-1"><?=find_array($json, 46, $lang_ct)?></option>
                         <?
-							$tematicas = $oreka->getCollection(19, "lord", 'upward', 0, 1);
-							for($i=0;$i<count($tematicas);$i++){ $post = $tematicas[$i]->$lang_ct; ?>
-                            <option value="<?=$post->rowID?>" <? if($_GET['topic']==$post->rowID){ echo "selected";} ?>><?=$post->name_thematic?></option>
+							$tematicas = $cinescuela->getTematicas();
+							for($i=0;$i<count($tematicas);$i++){ $post = $tematicas[$i]; ?>
+                            <option value="<?=$post->id?>" <? if($_GET['topic']==$post->id){ echo "selected";} ?>><?=$post->title->rendered?></option>
                             <? } ?>
 					</select>
                     </form>
@@ -69,34 +69,38 @@
 				$currentPage = $_GET['page'];
 			}
 			if($_GET['lang']=="es"){
-				$posts = $oreka->getByMultipleField("0,0","featured_film,fr_film","3,3", 9, $currentPage,'lord', 'upward');
+				// $posts = $oreka->getByMultipleField("0,0","featured_film,fr_film","3,3", 9, $currentPage,'lord', 'upward');
+				$posts = $cinescuela->getPeliculas("", $currentPage, 9, ["field"=>"pelicula_frances","value"=>0]);
 			}
 			else{
-				$posts = $oreka->getByMultipleField("0,1","featured_film,fr_film","3,3", 9, $currentPage,'lord', 'upward');
+				// $posts = $oreka->getByMultipleField("0,1","featured_film,fr_film","3,3", 9, $currentPage,'lord', 'upward');
+				$posts = $cinescuela->getPeliculas("", $currentPage, 9, ["field"=>"pelicula_frances","value"=>1]);
 			}
 			$totalPages=0;
 			if(is_array($posts)){
-				$totalPosts = $posts[0]->$lang->totalRows;
+				$totalPosts = 243;
 				$totalPages = ceil($totalPosts/9);
 			}
 		?>
 		<? 
 		if($_GET['lang']=="es"){
-			$destacados = $oreka->getByMultipleField("1,0",'featured_film,fr_film',"3,3",2,1,'lord','upward');
+			// $destacados = $oreka->getByMultipleField("1,0",'featured_film,fr_film',"3,3",2,1,'lord','upward');
+			$destacados = $cinescuela->getPeliculas("", $currentPage, 2, ["field"=>"pelicula_frances,pelicula_destacada","value"=>"0,1"]);;
 		}
 		else{
-			$destacados = $oreka->getByMultipleField("1,1",'featured_film,fr_film',"3,3",2,1,'lord','upward');
+			// $destacados = $oreka->getByMultipleField("1,1",'featured_film,fr_film',"3,3",2,1,'lord','upward');
+			$destacados = $cinescuela->getPeliculas("", $currentPage, 2, ["field"=>"pelicula_frances,pelicula_destacada","value"=>"1,1"]);;
 		}
 		if($currentPage==1 && is_array($destacados)){
 		//Traigo las dos primeras peliculas destacadas
-		for($i=0;$i<count($destacados);$i++){ $post = $destacados[$i]->$lang; ?>
+		for($i=0;$i<count($destacados["response"]);$i++){ $post = $destacados["response"][$i]; ?>
         <? $class=""; if($i==0){ $class='class="big"'; } if($i==1){ $class='class="big_two"'; } ?>
 			<article <?=$class?>>
-				<a href="<?=$_GET['lang']?>/pelicula/<?=get_alias($post->tit_film)?>-<?=$post->rowID?>" onClick="ga('send', 'event', 'Películas', 'click', '<?=$post->tit_film?>')">
-					<figure style="background-image:url(<?=dev($post->img_film)?>);"></figure>
+				<a href="<?=$_GET['lang']?>/pelicula/<?=get_alias($post->title->rendered)?>-<?=$post->rowID?>" onClick="ga('send', 'event', 'Películas', 'click', '<?=$post->title->rendered?>')">
+					<figure style="background-image:url(<?=dev($post->acf->imagen_pelicula)?>);"></figure>
 					<div>
-						<h2><?=$post->tit_film?></h2>
-						<p><?=$post->direct_film?></p>
+						<h2><?=$post->title->rendered?></h2>
+						<p><?=$post->acf->director_pelicula?></p>
 						<!--<img src="images/site/min_rank_4.png" alt="ranking">-->
 					</div>
 				</a>
@@ -107,13 +111,14 @@
 		<?
 		if(is_array($posts)){
         //Traigo el resto de peliculas, estas quedan paginadas
-		for($i=0;$i<count($posts);$i++){ $post = $posts[$i]->$lang; ?>
+		for($i=0;$i<count($posts["response"]);$i++){ $post = $posts["response"][$i]; 
+		?>
 			<article>
-				<a href="<?=$_GET['lang']?>/pelicula/<?=get_alias($post->tit_film)?>-<?=$post->rowID?>">
-					<figure style="background-image:url(<?=dev($post->img_film)?>);"></figure>
+				<a href="<?=$_GET['lang']?>/pelicula/<?=get_alias($post->title->rendered)?>-<?=$post->rowID?>">
+					<figure style="background-image:url(<?=dev($post->acf->imagen_pelicula)?>);"></figure>
 					<div>
-						<h2><?=$post->tit_film?></h2>
-						<p><?=$post->direct_film?></p>
+						<h2><?=$post->title->rendered?></h2>
+						<p><?=$post->acf->director_pelicula?></p>
 						<!--<img src="images/site/min_rank_4.png" alt="ranking">-->
 					</div>
 				</a>
@@ -165,11 +170,11 @@
 			//Pinto los articulos recorriendo los 3 espacios de busqueda
 			for($i=0;$i<count($busqueda);$i++){ $post = $busqueda[$i]->$lang; ?>
 			<article>
-				<a href="<?=$_GET['lang']?>/pelicula/<?=get_alias($post->tit_film)?>-<?=$post->rowID?>">
-					<figure style="background-image:url(<?=dev($post->img_film)?>);"></figure>
+				<a href="<?=$_GET['lang']?>/pelicula/<?=get_alias($post->title->rendered)?>-<?=$post->rowID?>">
+					<figure style="background-image:url(<?=dev($post->acf->imagen_pelicula)?>);"></figure>
 					<div>
-						<h2><?=$post->tit_film?></h2>
-						<p><?=$post->direct_film?></p>
+						<h2><?=$post->title->rendered?></h2>
+						<p><?=$post->acf->director_pelicula?></p>
 					</div>
 				</a>
 			</article>
@@ -200,11 +205,11 @@
 			        //Traigo el resto de peliculas, estas quedan paginadas
 					for($i=0;$i<count($posts);$i++){ $post = $posts[$i]->$lang; ?>
 						<article>
-							<a href="<?=$_GET['lang']?>/pelicula/<?=get_alias($post->tit_film)?>-<?=$post->rowID?>">
-								<figure style="background-image:url(<?=dev($post->img_film)?>);"></figure>
+							<a href="<?=$_GET['lang']?>/pelicula/<?=get_alias($post->title->rendered)?>-<?=$post->rowID?>">
+								<figure style="background-image:url(<?=dev($post->acf->imagen_pelicula)?>);"></figure>
 								<div>
-									<h2><?=$post->tit_film?></h2>
-									<p><?=$post->direct_film?></p>
+									<h2><?=$post->title->rendered?></h2>
+									<p><?=$post->acf->director_pelicula?></p>
 									<!--<img src="images/site/min_rank_4.png" alt="ranking">-->
 								</div>
 							</a>
@@ -224,11 +229,11 @@
 				if(is_array($destacados)){
 				for($i=0;$i<count($destacados);$i++){ $post = $destacados[$i]->$lang;?>
 			<article>
-				<a href="<?=$_GET['lang']?>/pelicula/<?=get_alias($post->tit_film)?>-<?=$post->rowID?>" onClick="ga('send', 'event', 'Películas', 'click', '<?=$post->tit_film?>')">
-					<figure style="background-image:url(<?=dev($post->img_film)?>);"></figure>
+				<a href="<?=$_GET['lang']?>/pelicula/<?=get_alias($post->title->rendered)?>-<?=$post->rowID?>" onClick="ga('send', 'event', 'Películas', 'click', '<?=$post->title->rendered?>')">
+					<figure style="background-image:url(<?=dev($post->acf->imagen_pelicula)?>);"></figure>
 					<div>
-						<h2><?=$post->tit_film?></h2>
-						<p><?=$post->direct_film?></p>
+						<h2><?=$post->title->rendered?></h2>
+						<p><?=$post->acf->director_pelicula?></p>
 						<!--<img src="images/site/min_rank_4.png" alt="ranking">-->
 					</div>
 				</a>
