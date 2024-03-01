@@ -1,75 +1,50 @@
 <?php include 'includes/head.php'; ?>
 <!--Contenedor principal-->
 <div id="main_container">
-
 	<!--Encabezado-->
 	<?php include 'includes/header.php'; ?><!--Fin Encabezado-->
-
 	<!--peliculas-->
 	<section class="intern cycles">
-
-		<!--Titulo
-		<div class="green_title">
-			<h2>Ciclos</h2>
-
-		</div> Fin Titulo-->
-
-		<!--lista ciclos-->
 		<div class="list_cycle">
-        <?php $post = $oreka->getRows($gnrl->cyclemonth_gnrl)->$lang;?>
+        <?php 
+		$post = $cinescuela->getCiclos(strval($gnrl->cyclemonth_gnrl[0]));
+		?>
         <article class="month">
-			<a href="<?=$_GET['lang']?>/ciclo/<?=get_alias($post->tit_cycle)?>-<?=$post->rowID?>" onClick="ga('send', 'event', 'Ciclos', 'click','<?=$post->tit_cycle?>')">
-				<figure style="background-image:url(<?=dev($post->img_cycle)?>);"></figure>
+			<a href="<?=$_GET['lang']?>/ciclo/<?=get_alias($post->title->rendered)?>-<?=$post->id?>" onClick="ga('send', 'event', 'Ciclos', 'click','<?=$post->title->rendered?>')">
+				<figure style="background-image:url(<?=$post->acf->imagen_principal_el_ciclo?>);"></figure>
 				<div>
-					<h2><?=$post->tit_cycle?></h2>
-					<time><?=$post->month_cycle?> <?=$post->year_cycle?></time>
+					<h2><?=$post->title->rendered?></h2>
+					<time><?=$post->acf->mes_del_ciclo?> <?=$post->acf->ano_del_ciclo?></time>
 					<div class="desc">
 						<hr>
-						<?=$post->shortdesc_cycle?>
+						<?=$post->acf->descripcion_corta_del_ciclo?>
 					</div>						
 				</div>
 			</a>
 		</article>
 		<? if($_GET['lang']=="es"){
-				$destacados = $oreka->getByField(0,"fr_cycle",3,50,1,'lord','upward');
-			}else{
-				$destacados = $oreka->getByField(1,"fr_cycle",3,50,1,'lord','upward');
-			}
-			if(is_array($destacados)){
-			for($i=0;$i<count($destacados);$i++){ $post = $destacados[$i]->$lang;
-				$class=""; if($post->rowID!=$gnrl->cyclemonth_gnrl){ ?>
+			$destacados = $cinescuela->getCiclos("",1,100,['field'=>'ciclo_frances_','value'=>'0']);
+		}else{
+			$destacados = $cinescuela->getCiclos("",1,100,['field'=>'ciclo_frances_','value'=>'1']);
+		}
+		if(is_array($destacados)){
+			for($i=0;$i<count($destacados["response"]);$i++){ $post = $destacados["response"][$i];
+				$class=""; if($post->id!=$gnrl->cyclemonth_gnrl[0]){ ?>
 			<article <?=$class?>>
-				<a href="<?=$_GET['lang']?>/ciclo/<?=get_alias($post->tit_cycle)?>-<?=$post->rowID?>" onClick="ga('send', 'event', 'Ciclos', 'click','<?=$post->tit_cycle?>')">
-					<figure style="background-image:url(<?=dev($post->img_cycle)?>);"></figure>
+				<a href="<?=$_GET['lang']?>/ciclo/<?=get_alias($post->title->rendered)?>-<?=$post->id?>" onClick="ga('send', 'event', 'Ciclos', 'click','<?=$post->title->rendered?>')">
+					<figure style="background-image:url(<?=$post->acf->imagen_principal_el_ciclo?>);"></figure>
 					<div>
-						<h2><?=$post->tit_cycle?></h2>
-						<time><?=$post->month_cycle?> <?=$post->year_cycle?></time>
+						<h2><?=$post->title->rendered?></h2>
+						<time><?=$post->acf->mes_del_ciclo?> <?=$post->acf->ano_del_ciclo?></time>
 						<div class="desc">
 							<hr>
-							<?=$post->shortdesc_cycle?>
+							<?=$post->acf->descripcion_corta_del_ciclo?>
 						</div>						
 					</div>
 				</a>
 			</article>
 		<?php } } } ?>
 		</div>
-        <!--Fin lista ciclos-->
-
-		<!--<div class="pager">
-			<ul>
-				<li><a href="#" class="prev">prev</a></li>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#" class="active">5</a></li>
-				<li><a href="#">6</a></li>
-				<li><a href="#">7</a></li>
-				<li><a href="#">8</a></li>
-				<li><a href="#" class="next">next</a></li>
-			</ul>
-		</div>-->
-	
 	</section><!--Fin peliculas-->
 
 <?php include 'includes/footer.php'; ?>

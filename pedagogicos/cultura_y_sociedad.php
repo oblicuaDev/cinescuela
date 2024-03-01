@@ -7,7 +7,7 @@
 	<!--Listado-->
 	<div class="general-scroll">
 		<div id="list_container">
-			<?php for ($i=1; $i <36 ; $i++) { ?>
+			<?php for ($i=1; $i <count() ; $i++) { ?>
 			<article class="item">
 				<ul class="tipo">
 					<li><a href="#" class="t_video" title="Video">Video</a></li>

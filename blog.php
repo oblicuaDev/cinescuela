@@ -8,7 +8,7 @@
 	<!--peliculas-->
 	<section class="intern news">
 		<!--Titulo-->
-		<h2><?=$category->name_category?></h2><!--Fin Titulo-->
+		<h2><?=$category->name?></h2><!--Fin Titulo-->
 		<!--lista ciclos-->
         <?
 		if(!isset($_GET['page']))
@@ -19,32 +19,36 @@
 			$currentPage = $_GET['page'];
 		}
 		if($_GET['lang']=="es"){
-        	$destacados = $oreka->getByMultipleField($_GET['cat'].",0",'category_info,fr_info',"3,3",6,$currentPage,'lord','upward');
+        	$destacados = $cinescuela->consultarRecursos("posts", "", "", "GET", $currentPage, 6, ['categories'=>$_GET['cat'], 'informativa_frances_'=>0]);
 		}else{
-        	$destacados = $oreka->getByMultipleField($_GET['cat'].",1",'category_info,fr_info',"3,3",6,$currentPage,'lord','upward');
+        	$destacados = $cinescuela->consultarRecursos("posts", "", "", "GET", $currentPage, 6, ['categories'=>$_GET['cat'], 'informativa_frances_'=>1]);
 		}
 		$totalPages=0;
 		if(is_array($destacados)){
-        $totalPosts = $destacados[0]->$lang->totalRows;
-		$totalPages = ceil($totalPosts/6);
+		$totalPages = $destacados["total_pages"];
 		?>
 		<div class="list_news">
-		<?php for($i=0;$i<count($destacados);$i++){ $post = $destacados[$i]->$lang; 
+		<?php
+		 for($i=0;$i<count($destacados["response"]);$i++){ $post = $destacados["response"][$i]; 
 			//if(get_campo_adicional("perfil-relacionado",$destacados[$i],0)==""){
 		?>	
 			<article>
-				<figure style="background-image:url(<?=dev($post->img_info)?>);"><a href="<?=$_GET['lang']?>/informacion/<?=$_GET['cat']?>/<?=get_alias($post->tit_info)?>-<?=$post->rowID?>" onClick="ga('send', 'event', 'Blog', 'click','Ver mas - <?=$post->tit_info?>')"></a></figure>
+				<figure style="background-image:url(<?=$post->acf->imagen?>);"><a href="<?=$_GET['lang']?>/informacion/<?=$_GET['cat']?>/<?=get_alias($post->title->rendered)?>-<?=$post->id?>" onClick="ga('send', 'event', 'Blog', 'click','Ver mas - <?=$post->title->rendered?>')"></a></figure>
 				<div>
                 	<?
-				$date = new DateTime($post->publication_date);
-				$newD = $date->format('Y-m-d');
+						$date = DateTime::createFromFormat('d/m/Y', $post->acf->fecha_de_publicacion);
+						if ($date !== false) {
+							$newD = $date->format('Y-m-d');
+						} else {
+							echo "La fecha proporcionada no es válida.";
+						}
 				?>
-					<time datetime="<?=$post->publication_date?>"><?=$newD?></time>
-					<h2><a href="<?=$_GET['lang']?>/informacion/<?=$_GET['cat']?>/<?=get_alias($post->tit_info)?>-<?=$post->rowID?>" onClick="ga('send', 'event', 'Blog', 'click','Ver mas - <?=$post->tit_info?>')"><?=$post->tit_info?></a></h2>
+					<time datetime="<?=$post->acf->fecha_de_publicacion?>"><?=$newD?></time>
+					<h2><a href="<?=$_GET['lang']?>/informacion/<?=$_GET['cat']?>/<?=get_alias($post->title->rendered)?>-<?=$post->id?>" onClick="ga('send', 'event', 'Blog', 'click','Ver mas - <?=$post->title->rendered?>')"><?=$post->title->rendered?></a></h2>
 					<div class="desc">
 						<?=$post->descsmall_info?>
 					</div>
-					<a href="<?=$_GET['lang']?>/informacion/<?=$_GET['cat']?>/<?=get_alias($post->tit_info)?>-<?=$post->rowID?>" class="more" onClick="ga('send', 'event', 'Blog', 'click','Ver mas - <?=$post->tit_info?>')">Ver más</a>
+					<a href="<?=$_GET['lang']?>/informacion/<?=$_GET['cat']?>/<?=get_alias($post->title->rendered)?>-<?=$post->id?>" class="more" onClick="ga('send', 'event', 'Blog', 'click','Ver mas - <?=$post->title->rendered?>')">Ver más</a>
 				</div>
 			</article>
 		<?php /*}*/ } }?>

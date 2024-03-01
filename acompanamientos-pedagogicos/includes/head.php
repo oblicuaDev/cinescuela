@@ -3,14 +3,20 @@
 	include ("../includes/connection.php");
 	$lang_j=$_GET['lang']; 
 	$json=json_decode(file_get_contents('../js/data_static.json'),true);
+	var_dump($cinescuela);
+	$movie_ap = $cinescuela->getAP($_GET['rowID']);
+	var_dump($_GET['rowID']);
+	var_dump($movie_ap['response']);
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
 	<base href="/acompanamientos-pedagogicos/">
-	<? create_metas(); $movie=$rows;?>
+	<?php 
+		create_metas(); 
+	?>
 <?php if( !((($_SESSION['logged']['cod_us']>0 || $_SESSION['logged']['cod_us'] !="") && $movie->private_notice==1) || $movie->private_notice==0) ){ ?>
-	<script>location.href="../<?=$_GET['lang']?>/pelicula/<?=get_alias($movie->tit_film)?>-<?=$movie->rowID?>";</script>
+	<script>location.href="../<?=$_GET['lang']?>/pelicula/<?=get_alias($movie->tit_film)?>-<?=$rowID?>";</script>
 <?php } ?>
     <!-- Metatags Facebook -->
 	<meta property="og:image" content="<?=$metas['img']?>" />

@@ -4,34 +4,33 @@
 	<h2 class="hidden">Pelicula</h2>
 	<!--Tabs contenido pelicula-->
 	<div id="tabs">
-    	<?
+	<?
 			switch($_GET['cat']){
 				case 19747:
-					$thecontent=$oreka->getByField($apedag->rowID,"prest_filmap",3,1,1,"created","downward")[0]->es;
-					$sufix="_filmap";
+					$thecontent = $apedag->acf->seccion_pelicula; 
 				break;
 				case 19748:
-					$thecontent=$oreka->getByField($apedag->rowID,"prest_context",3,1,1,"created","downward")[0]->es;
-					$sufix="_context";
+					$thecontent = $apedag->acf->contexto; 
 				break;
 			}
-        //print_r($thecontent);
 		?>	
 		<ul>
-		<? for($i=1; $i < 6; $i++){ 
-			if($thecontent->{"tit".$i.$sufix}!=""){ ?>
+		<? for($i=1; $i < 5; $i++){ 
+			$contenido = $thecontent->{"actividad_".$i};
+			if($contenido->titulo != ""){ ?>
 			<li>
-				<a href="<?=$_GET['lang']?>/<?=$nCategoria?>/<?=get_alias($movie->tit_film)?>-<?=$apedag->rowID?>#tab-<?=$i?>" onClick="ga('send', 'event', 'Acompañamiento pedagógico', 'click','Película - <?=$thecontent->{"tit".$i.$sufix}?>')">
-					<span><strong><?=$i?></strong><?=$thecontent->{"tit".$i.$sufix}?></span>
+				<a href="<?=$_GET['lang']?>/<?=$nCategoria?>/<?=get_alias($movie->title->rendered)?>-<?=$_GET['rowID']?>#tab-<?=$i?>" onClick="ga('send', 'event', 'Acompañamiento pedagógico', 'click','Película - <?=$contenido->titulo?>')">
+					<span><strong><?=$i?></strong><?=$contenido->titulo?></span>
 				</a>
 			</li>
 		<? } } ?>
 		</ul>
-		<?php for ($i=1; $i < 6; $i++) { ?>
-        	<? if($thecontent->{"tit".$i.$sufix}!=""){ if(!$thecontent->{"imgleft".$i.$sufix}){ //Si es plantilla 1?>
+		<?php for ($i=1; $i < 5; $i++) { $contenido = $thecontent->{"actividad_".$i}; ?>
+        	<? 
+				if($contenido->titulo!=""){ if(!$contenido->imagen_a_la_izquierda){ //Si es plantilla 1?>
             
             	<?
-				$vinculo = $thecontent->{"url".$i.$sufix};
+				$vinculo = $contenido->url_video;
 				$trailerSplit = explode("/",$vinculo);
 				$videoCode = end($trailerSplit);
 				
@@ -63,32 +62,32 @@
 			<div class="c_left">
 				<div class="general-scroll">
 					<div class="desc">
-						<h2><?=$thecontent->{"tit".$i.$sufix}?></h2><hr>
-						<?=$thecontent->{"desc".$i.$sufix}?>
+						<h2><?=$contenido->titulo?></h2><hr>
+						<?=$contenido->descripcion?>
 					</div>
 				</div>
 			</div><!--Fin Contenido left-->
 			<!--Contenido Right-->
 			<div class="c_right">
             <? if($vinculo!=""){ ?>
-				<figure class="video" style="background-image:url(<?=dev($thecontent->{"img".$i.$sufix})?>);">
-					<a href="<?=$urele.$videoCode?>" class="open_video" onClick="ga('send', 'event', 'Acompañamiento pedagógico', 'click','Reproducir - <?=$thecontent->{"tit".$i.$sufix}?>')">
-						<img src="<?=dev($thecontent->{"img".$i.$sufix})?>" alt="Video">
-						<span class="figcaption"><?=$language->tr20_langs?></span>
+				<figure class="video" style="background-image:url(<?=$contenido->imagen?>);">
+					<a href="<?=$urele.$videoCode?>" class="open_video" onClick="ga('send', 'event', 'Acompañamiento pedagógico', 'click','Reproducir - <?=$contenido->titulo?>')">
+						<img src="<?=$contenido->imagen?>" alt="Video">
+						<span class="figcaption"></span>
 					</a>
 				</figure>
                 
 				<div class="general-scroll two">
 					<div class="footer_content">
-						<p><?=$thecontent->{"desciv".$i.$sufix}?></p>
+						<p><?=$contenido->descripcion_imagen_o_video?></p>
 					</div>
 				</div>
                 <? } else{?>
-                	<figure class="video" style="background-image:url(<?=dev($thecontent->{"img".$i.$sufix})?>);">
+                	<figure class="video" style="background-image:url(<?=$contenido->imagen?>);">
                 	</figure>
                     <div class="general-scroll two">
 					<div class="footer_content">
-						<p><?=$thecontent->{"desciv".$i.$sufix}?></p>
+						<p><?=$contenido->descripcion_imagen_o_video?></p>
 					</div>
 				</div>
                 <? } ?>
@@ -110,15 +109,15 @@
 			<div class="c_left">
 				<div class="general-scroll">
 					<div class="desc">
-						<h2><?=$thecontent->{"tit".$i.$sufix}?></h2><hr>
-						<?=$thecontent->{"desc".$i.$sufix}?>
+						<h2><?=$contenido->titulo?></h2><hr>
+						<?=$contenido->descripcion?>
 					</div>
 				</div>
 			</div><!--Fin Contenido left-->
 			<!--Contenido Right-->
 			<div class="c_right">
             <? if($vinculo!=""){ ?>
-				<figure class="audio" style="background-image:url('<?=dev($thecontent->{"img".$i.$sufix})?>')" alt="Video">');">
+				<figure class="audio" style="background-image:url('<?=$contenido->imagen?>')" alt="Video">');">
 					<div>
                     	<?=$urele?>
 						<!--AUDIO AQUI-->
@@ -126,15 +125,15 @@
 				</figure>
 				<div class="general-scroll two">
 					<div class="footer_content">
-						<p><?=$thecontent->{"desciv".$i.$sufix}?></p>
+						<p><?=$contenido->descripcion_imagen_o_video?></p>
 					</div>
 				</div>
                 <? } else{?>
-                	<figure class="video" style="background-image:url(<?=dev($thecontent->{"img".$i.$sufix})?>);">
+                	<figure class="video" style="background-image:url(<?=$contenido->imagen?>);">
                 	</figure>
                     <div class="general-scroll two">
 					<div class="footer_content">
-						<p><?=$thecontent->{"desciv".$i.$sufix}?></p>
+						<p><?=$contenido->descripcion_imagen_o_video?></p>
 					</div>
 				</div>
                 <? } ?>
@@ -146,7 +145,7 @@
 				?> 
             <? } ?>
             
-            <? if($thecontent->{"imgleft".$i.$sufix}){ //Si es plantilla 2?>
+            <? if($contenido->imagen_a_la_izquierda){ //Si es plantilla 2?>
             <!--Tab item imagenes-->
 		<section id="tab-<?=$i+1?>">
 			<!--Contenido left-->
@@ -155,7 +154,7 @@
 					<div class="carrousel">
                     
                     <?
-						$mygallery = get_gallery($thecontent[$i],0);
+						$mygallery = get_gallery($contenido[$i],0);
 						$cantidadFotos = count($mygallery['files']);
 						$paginas = ceil($cantidadFotos/6);
 					?>
@@ -176,7 +175,7 @@
 				</div>
 				<div class="general-scroll three">
 					<div class="footer_content">
-						<p><? campo_adicional("pie-de-multimedia",$thecontent[$i],0); ?></p>
+						<p><? campo_adicional("pie-de-multimedia",$contenido[$i],0); ?></p>
 					</div>
 				</div>
 			</div><!--Fin Contenido left-->

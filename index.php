@@ -3,15 +3,8 @@
 		header('Location: /es ', true, 301);
 		die();
 	}
-
-    
-
 ?>
-<?php include 'includes/head.php'; 
-
-// $myvar = $oreka->helloworld();
-//echo $myvar->message;
-?>
+<?php include 'includes/head.php'; ?>
 <!--Contenedor principal-->
 <div id="main_container" class="home">
 
@@ -121,7 +114,7 @@
 	<!--Noticias recientes-->
 	<section class="latest_news">
 		<h2><?=find_array($json,6, $lang_ct)?></h2>
-         <? if($lang_ct=="es"){$id=0;}else{$id=1;} $destacados = $oreka->getByMultipleField("1,$id",'featured_notice,fr_info',"3,3",4,1,'lord','upward'); ?>
+         <? if($lang_ct=="es"){$id=0;}else{$id=1;} $destacados = array(); ?>
         <?php if(is_array($destacados)){ for($i=0;$i<count($destacados);$i++){ $post = $destacados[$i]->es; ?>
 		<article>
 			<figure><a href="<?=$_GET['lang']?>/informacion/16/<?=get_alias($post->tit_info)?>-<?=$post->id?>" onClick="ga('send', 'event', 'Actualidad', 'click','<?=$post->tit_info?>')"><img src="<?=dev($post->img_info)?>" alt="<?=$post->tit_info?>"></a></figure>

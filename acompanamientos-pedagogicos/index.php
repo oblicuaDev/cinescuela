@@ -1,4 +1,8 @@
-<?php include 'includes/header.php'; ?>
+<?php 
+include 'includes/header.php'; 
+?>
+
+<p>TEXTO PRUBA</p>
 
 <!--Contenido general-->
 <section id="main_container" class="presentacion">

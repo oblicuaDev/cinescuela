@@ -3,6 +3,7 @@
 	include ("../includes/connection.php");
 	$lang_j=$_GET['lang']; 
 	$json=json_decode(file_get_contents('../js/data_static.json'),true);
+	$movie = $cinescuela->getPeliculas($_GET['rowID'], 1, 1);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -10,17 +11,11 @@
 	<base href="/pedagogicos/">
 	<? create_metas(); 
     $fromLang = "es";
-    
-    $apedag = $rows;
-    //print_r($apedag);
-    $movie=$oreka->getRows($apedag->movie_prest)->es;
+    $apedag = $cinescuela->getAP($_GET['rowID']);
     if($movie->fr_film){ $fromLang="fr"; }
-    $language = $oreka->getRows($apedag->lang_prest)->es;
-    //print_r($language);
-    //exit;
     ?>
 <?php if( !((($_SESSION['logged']['cod_us']>0 || $_SESSION['logged']['cod_us'] !="") && $movie->private_notice==1) || $movie->private_notice==0) ){ ?>
-	<script>location.href="../<?=$_GET['lang']?>/pelicula/<?=get_alias($movie->tit_film)?>-<?=$movie->rowID?>";</script>
+	<script>location.href="../<?=$_GET['lang']?>/pelicula/<?=get_alias($movie->title->rendered)?>-<?=$movie->id?>";</script>
 <?php } ?>
     <!-- Metatags Facebook -->
 	<meta property="og:image" content="<?=$metas['img']?>" />
@@ -98,6 +93,6 @@
 <!-- Twitter SDK -->
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 <!--Loading page-->
-<div id="loading_page"><span><?=$language->tr1_langs?> <?=$movie->tit_film?></span></div><!--Fin Loading page-->
+<div id="loading_page"><span> <?=$movie->title->rendered?></span></div><!--Fin Loading page-->
 <!--Contenedor principal-->
 <div id="main_wrapper">

@@ -1,5 +1,8 @@
-<?php include 'includes/head.php'; $rowID = $_GET['rowID']; $movie = $rows; 
-//echo $rowID."rowid";
+<?php 
+include 'includes/head.php'; 
+$rowID = $_GET['rowID']; 
+$movie = $cinescuela->getPeliculas($rowID, 1, 1);
+//echo $id."id";
 ?>
 <!--Contenedor principal-->
 <div id="main_container">
@@ -13,20 +16,17 @@
 	<!--Pelicula-->
 	<article class="intern movie">
 		<?php
-		$disponibles=$oreka->getRows($_SESSION['logged']['cod_us'])->$lang->films_user;
-		$disponibles_array=explode(",", $disponibles);
-		$search=array_search(intval($rowID) ,$disponibles_array);
-		if(is_numeric($search)){
+		if(isset($_SESSION['logged'])){
 		?>
-		<a class="play_button" href="<?=$_GET['lang']?>/pelicula/<?=get_alias($movie->tit_film)?>-<?=$movie->rowID?>/Play"><span><?=find_array($json, 47, $lang_ct)?></span></a>
+		<a class="play_button" href="<?=$_GET['lang']?>/pelicula/<?=get_alias($movie->title->rendered)?>-<?=$movie->id?>/Play"><span><?=find_array($json, 47, $lang_ct)?></span></a>
 		<? }?>
-		<figure class="main_img" style="background-image:url(<?=dev($movie->img_film)?>);">
+		<figure class="main_img" style="background-image:url(<?=$movie->acf->imagen_pelicula?>);">
         </figure>
 		<div>
 			<!--Trailer-->
             <?php 
-            	$trailerSplit = explode("/",$movie->trailer_film);
-            	if(stripos($movie->trailer_film, "vimeo"))
+            	$trailerSplit = explode("/",$movie->acf->url_trailer);
+            	if(stripos($movie->acf->url_trailer, "vimeo"))
 				{
 					$urele = "http";
 					if($_SERVER["HTTPS"] == "on"){ $urele.="s";}
@@ -46,51 +46,51 @@
 					<span><strong>30</strong> calificaciones</span>
 				</li>-->
 				<li class="main_info">
-					<h2><?=$movie->tit_film?></h2>
-					<p><em><?=find_array($json, 49, $lang_ct)?> <strong><?=$movie->direct_film?></strong></em></p>
+					<h2><?=$movie->title->rendered?></h2>
+					<p><em><?=find_array($json, 49, $lang_ct)?> <strong><?=$movie->acf->director_pelicula?></strong></em></p>
 					<ul>
-						<li><?=$movie->country_film?> <?=$movie->year_film?></li>
-						<li><?=$movie->duration_film?></li>
+						<li><?=$movie->acf->pais_pelicula?> <?=$movie->acf->ano_pelicula?></li>
+						<li><?=$movie->acf->duracion_en_minutos?></li>
 					</ul>
 				</li>
 				<li class="general_info">
-					<p><?=$movie->desc_film?></p>
+					<p><?=$movie->content->rendered?></p>
 				</li>
 				<li>
 					<div id="our_opinion">
 						<h3><?=find_array($json, 51, $lang_ct)?></h3>
 						<div>
-							<?=$movie->opinion_film?>
+							<?=$movie->acf->opinion?>
 						</div>
 					</div>
 				</li>
 			</ul><br>
-<?php if( ((($_SESSION['logged']['cod_us']>0 || $_SESSION['logged']['cod_us'] !="") && $movie->private_notice==1) || $movie->private_notice==0) && $movie->ac_film){ ?>
-            
-            <?php 
-            
-            $urlPrefix = "acompanamientos-pedagogicos";
-            $pedagID = $movie->rowID;
-            $newpedag = $oreka->getByMultipleField($movie->rowID.",1","movie_prest,".$_GET['lang']."_prest","3,3", 1, 1,'lord', 'upward'); 
-           // print_r($newpedag);
-            if(is_array($newpedag)){
-                $urlPrefix = "pedagogicos";
-                $pedagID = $newpedag[0]->es->rowID;
-            }
-    
-            ?>
-				<a href="<?=$urlPrefix?>/es/presentacion/<?=get_alias($movie->tit_film)?>-<?=$pedagID?>" target="_blank" class="a_peda"><?=str_replace(" ", "<br>", find_array($json, 52, $lang_ct))?></a><br>
-<?php } ?>
+			<?php 
+			// Verifica si el usuario está autenticado y si la película tiene acompañamiento pedagógico
+			if ((($_SESSION['logged']['cod_us'] > 0 || $_SESSION['logged']['cod_us'] != "") && $movie->acf->acompanamiento_pedagogico_privado == 1) || $movie->acf->acompanamiento_pedagogico_privado == 0 && $movie->acf->tiene_acompanamiento) { 
+				// Establece el prefijo de la URL para los acompañamientos pedagógicos
+				$urlPrefix = "acompanamientos-pedagogicos";
+				// Sobrescribe el prefijo de la URL con "pedagogicos"
+				$urlPrefix = "pedagogicos";
+			?>
+				<!-- Imprime un enlace con el título de la película y su ID de acompañamiento pedagógico -->
+				<a href="<?=$urlPrefix?>/es/presentacion/<?=get_alias($movie->title->rendered)?>-<?=$rowID?>" target="_blank" class="a_peda">
+					<!-- Reemplaza espacios con saltos de línea en el texto -->
+					<?=str_replace(" ", "<br>", find_array($json, 52, $lang_ct))?>
+				</a><br>
+			<?php 
+				} 
+			?>
 			<ul class="keywords">
-<?php $tags = explode(',', $movie->keywords_film);
+<?php $tags = explode(',', $movie->acf->palabras_clave_de_esta_publicacion);
 	for($i = 0 ; $i < count($tags) ; $i++){ ?>
 				<li><?=$tags[$i]?></li>
 <?php } ?>
 			</ul><br>
 			<ul class="shared">
 				<li><a href="javascript:facebook_share('<?=currentURL()?>');" class="facebook">facebook</a></li>
-				<li><a href="https://twitter.com/intent/tweet?text=<?=urlencode("Película ".$movie->tit_film." en Cinescuela ".currentURL())?>" target="_BLANK" class="twitter">twitter</a></li>
-				<li><a href="https://plus.google.com/share?url=<?=urlencode($movie->tit_film." en Cinescuela ".currentURL())?>" onclick="javascript:window.open(this.href,
+				<li><a href="https://twitter.com/intent/tweet?text=<?=urlencode("Película ".$movie->title->rendered." en Cinescuela ".currentURL())?>" target="_BLANK" class="twitter">twitter</a></li>
+				<li><a href="https://plus.google.com/share?url=<?=urlencode($movie->title->rendered." en Cinescuela ".currentURL())?>" onclick="javascript:window.open(this.href,
   '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" class="googlemas">google +</a></li>
 			</ul>
 		</div>
@@ -104,15 +104,15 @@
 			for($i = 1;$i < 4;$i++){ 
 			// $current_movie = "$movie"."->"."relac".$i."_film";
 			// echo $current_movie;
-			$rel_movie = $oreka->getRows($movie->{"relac".$i."_film"})->$lang;
-			if($rel_movie->tit_film!=""){
+			$rel_movie = $cinescuela->getPeliculas(strval($movie->acf->peliculas_relacionadas[$i]->ID));
+			if($rel_movie->title->rendered!=""){
 		?>
 		<article>
-			<a href="<?=$_GET['lang']?>/pelicula/<?=get_alias($rel_movie->tit_film)?>-<?=$rel_movie->rowID?>">
-				<figure style="background-image:url(<?=dev($rel_movie->img_film)?>);"></figure>
+			<a href="<?=$_GET['lang']?>/pelicula/<?=get_alias($rel_movie->title->rendered)?>-<?=$rel_movie->id?>">
+				<figure style="background-image:url(<?=$rel_movie->acf->imagen_pelicula?>);"></figure>
 				<div>
-					<h2><?=$rel_movie->tit_film?></h2>
-					<p><?=$rel_movie->direct_film?></p>
+					<h2><?=$rel_movie->title->rendered?></h2>
+					<p><?=$rel_movie->acf->director_pelicula?></p>
 				</div>
 			</a>
 		</article>

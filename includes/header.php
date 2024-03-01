@@ -57,7 +57,7 @@ var lang='<?=$_GET['lang']?>';
 		<div>
 			<h2><a href="<?=$_GET['lang']?>/">Menu Principal</a></h2><button id="btn_menu"><?=find_array($json, 8, $lang_ct)?></button><!--
 		 --><ul>
-				<li><a <? if($_GET['cat']==12){ echo 'class="active"'; } ?> href="<?=$_GET['lang']?>/informacion/12/cinescuela-21815">Cinescuela</a></li><!--
+				<li><a <? if($_GET['cat']==12){ echo 'class="active"'; } ?> href="<?=$_GET['lang']?>/informacion/12/cinescuela-10190">Cinescuela</a></li><!--
 			 --><li><a <? if($_GET['cat']==19743){ echo 'class="active"'; } ?> href="<?=$_GET['lang']?>/peliculas"><?=find_array($json, 2, $lang_ct)?></a></li><!--
 			 --><li><a <? if($_GET['cat']==19744){ echo 'class="active"'; } ?> href="<?=$_GET['lang']?>/ciclos"><?=find_array($json, 4, $lang_ct)?></a></li><!--
 			 --><li><a <? if($_GET['cat']==15){ echo 'class="active"'; } ?> href="<?=$_GET['lang']?>/educacion"><?=find_array($json, 5, $lang_ct)?></a></li><!--

@@ -11,8 +11,7 @@ function changeLang($new){
 	$newURL=str_replace("/".$_GET['lang']."/", "/".$new."/", currentURL());
 	return $newURL;
 }
-function pager($currentPage,$totalPages)
-{
+function pager($currentPage,$totalPages){
 	$cadena = '<ul>';
     if($currentPage>1){ 
 		$cadena .='<li><a href="'.currentURL().'/pagina-'.($currentPage-1).'" class="prev">prev</a></li>';
@@ -36,75 +35,76 @@ function dev($dir){
 	return str_replace("oreka_dev", "oreka", $dir);
 }
 function create_metas(){
-	global $oreka,$metas,$gnrl,$category,$rows,$lang;
+	global $metas,$gnrl,$category,$rows,$lang, $cinescuela;
 	$metas['analytics']='<script>(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga");</script>';
   	$langFound=false;
-	//24=event 8=movie 6=cycle
-	if(!( isset($_GET['cat']) && isset($_GET['rowID']) ) ){
+	$canonicalURL = "http://".$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI];
+	global $metas, $urlMap;
+	$ret = '';
+	if(!isset($_GET['seotype'])){
 		$metas['words']=$gnrl->keywseo_meta;
-		$metas['desc']=$gnrl->metadseo_meta;
+		$metas['desc']=$gnrl->acf->metadseo_meta;
 		$metas['title']=$gnrl->titseo_meta;
-		$metas['img']=$gnrl->imgogseo_meta;
-		$metas['dom']=$gnrl->domseo_meta;
-	}
-	if(isset($_GET['cat'])){
-		$category=$oreka->getRows($_GET['cat']);
-		if($category->es){
-			$category=$category->es;
-			$langFound=true;
+		$metas['img']=$gnrl->acf->imgogseo_meta;
+	}else{
+		if(!( isset($_GET['cat']) && isset($_GET['rowID']) ) ){
+			$metas['words']=$gnrl->acf->palabras_clave_de_esta_publicacion;
+			$metas['desc']=$gnrl->acf->meta_descripcion;
+			$metas['title']=$gnrl->acf->titulo_de_la_ventana;
+			$metas['img']=$gnrl->acf->imagen_para_el_open_graph;
 		}
-		else{
-			$category=$category->es;
-			$langFound=false;
+		if(isset($_GET['cat'])){
+			$category=$cinescuela->query('categories/'.$_GET['cat']);
+			$category=$category['response'];
 		}
-		$metas['words']=$category->keywseo_meta;
-		$metas['desc']=$category->metadseo_meta;
-		$metas['title']=$category->titseo_meta." - ".$gnrl->titseo_meta;
-		$metas['dom']=$category->domseo_meta;
-	}
-	if(isset($_GET['rowID'])){
-		$rows=$oreka->getRows($_GET['rowID']);
-		if($rows->es){
-			$rows=$rows->es;
-			$langFound=true;
+		if(isset($_GET['rowID'])){
+			$rows=$cinescuela->query('posts/'.$_GET['rowID']);
+			$metas['words']=$rows['response']->acf->palabras_clave_de_esta_publicacion;
+			$metas['desc']=$rows['response']->acf->meta_descripcion;
+			$metas['title']=$rows['response']->acf->titulo_de_la_ventana." - ".$gnrl->acf->titulo_de_la_ventana;
+			$metas['img']=$rows['response']->acf->imagen_para_el_open_graph;
 		}
-		else{
-			$rows=$rows->es;
-			$langFound=false;
+		if(isset($_GET['pageID'])){
+			$rows=$cinescuela->query('pages/'.$_GET['pageID']);
+			$metas['words']=$rows['response']->acf->palabras_clave_de_esta_publicacion;
+			$metas['desc']=$rows['response']->acf->meta_descripcion;
+			$metas['title']=$rows['response']->acf->titulo_de_la_ventana." - ".$gnrl->acf->titulo_de_la_ventana;
+			$metas['img']=$rows['response']->acf->imagen_para_el_open_graph;
 		}
 	}
-	if(isset($_GET['cat'])&&isset($_GET['rowID'])){
-		$metas['words']=$rows->keywseo_meta;
-		$metas['desc']=$rows->metadseo_meta;
-		$metas['title']=$category->titseo_meta." - ".$rows->titseo_meta." - ".$gnrl->titseo_meta;
-		$metas['img']=$rows->imgogseo_meta;
-		$metas['dom']=$rows->domseo_meta;
-	}
-	echo '<meta charset="utf-8">';
-	echo '<meta name="keywords" content="'.$metas['words'].'">';
-	echo '<meta name="description" content="'.$metas['desc'].'">';
-	echo '<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">';
-	echo '<title>'.$metas['title'].'</title>';
-	echo $metas['analytics'];
-	echo "<!--[if IE]>\n";
-	echo "<script>";
-	echo "\n\tdocument.createElement('header');\n\tdocument.createElement('footer');";
-	echo "\n\tdocument.createElement('section');\n\tdocument.createElement('figure');\n\tdocument.createElement('aside');";
-	echo "\n\tdocument.createElement('nav');\n\tdocument.createElement('article');";
-	echo "\n</script>";
-	echo "\n<![endif]-->";
-}
-function find_rowID($rowID,$rows){
-	if(!is_array($rows)) return false;
-	global $lang;
-	$nrows=count($rows);
-	for ($i=0; $i < $nrows; $i++) { 
-		$row=$rows[$i]->es;
-		if($row->rowID==$rowID){
-			return true;
-		}
-	}
-	return false;
+
+	$ret = '<meta charset="utf-8">' . PHP_EOL;
+	$ret .= '<link rel="canonical" href="' . $canonicalURL . '">' . PHP_EOL; 
+	$ret .= '<meta name="keywords" content="' . $metas['words'] . '">' . PHP_EOL;
+	$ret .= '<meta name="description" content="' . $metas['desc'] . '">' . PHP_EOL;
+	$ret .= '<meta name="viewport" content="width=device-width, initial-scale=1">' . PHP_EOL;
+	$ret .= '<title>' . $metas['title'] . '</title>' . PHP_EOL;
+	$ret .= '<meta name="thumbnail" content="' . $metas['img'] . '">' . PHP_EOL;
+	$ret .= '<meta name="language" content="spanish">' . PHP_EOL;
+	$ret .= '<meta name="twitter:card" content="summary_large_image">' . PHP_EOL;
+	$ret .= '<meta name="twitter:site" content="@BogotaDCTravel">' . PHP_EOL;
+	$ret .= '<meta name="twitter:title" content="' . $metas['title'] . '">' . PHP_EOL;
+	$ret .= '<meta name="twitter:description" content="' . $metas['desc'] . '">' . PHP_EOL;
+	$ret .= '<meta name="twitter:image" content="' . $metas['img'] . '">' . PHP_EOL;
+	//$ret .= '<meta property="fb:app_id" content="865245646889167">'.PHP_EOL;
+
+	$ret .= '<meta property="og:type" content="website">' . PHP_EOL;
+	$ret .= '<meta property="og:title" content="' . $metas['title'] . '">' . PHP_EOL;
+	$ret .= '<meta property="og:site_name" content="' . $metas['title'] . '">' . PHP_EOL;
+	$ret .= '<meta property="og:description" content="' . $metas['desc'] . '">' . PHP_EOL;
+	$ret .= '<meta property="og:image" content="' . $metas['img'] . '">' . PHP_EOL;
+	// $ret .= '<meta property="og:image:width" content="' . $width . '">' . PHP_EOL;
+	// $ret .= '<meta property="og:image:height" content="' . $height . '">' . PHP_EOL;
+	$ret .= '<meta property="og:image:alt" content="' . $metas['title'] . '"/>' . PHP_EOL;
+	$ret .= PHP_EOL;
+	$ret .= "<!--[if IE]>\n";
+	$ret .= "<script>\n";
+	$ret .= "\n\tdocument.createElement('header');\n\tdocument.createElement('footer');";
+	$ret .= "\n\tdocument.createElement('section');\n\tdocument.createElement('figure');\n\tdocument.createElement('aside');";
+	$ret .= "\n\tdocument.createElement('nav');\n\tdocument.createElement('article');";
+	$ret .= "\n</script>\n";
+	$ret .= "\n<![endif]-->\n";
+	echo $ret;
 }
 function get_alias($String)
 {
@@ -253,14 +253,14 @@ function create_hash($usu,$type){
 	
 	return $mihash.' '.$variableinterna ;
 }
-	function read_json($array){
-		$str = file_get_contents('js/data_static.json');
-		$array = json_decode($str, true);
-		return $array;
-	}
-	function find_array($array, $row, $lang){
-		echo $array[$row][$lang];
-	}
+function read_json($array){
+	$str = file_get_contents('js/data_static.json');
+	$array = json_decode($str, true);
+	return $array;
+}
+function find_array($array, $row, $lang){
+	echo $array[$row][$lang];
+}
 function getRealIP() {
 	if (!empty($_SERVER['HTTP_CLIENT_IP']))   
 		{
@@ -278,29 +278,29 @@ function getRealIP() {
 		}
 		return $ip_address;
 }
-function verifyIp($theip)
-{
-	global $oreka;
-	//$ip = getRealIP();
-	$ip = $theip;
-	$user = $oreka->getByField('-'.$ip.'-','ips_user',1,1,1,'created','downward');
-	if (is_array($user)) {
-		return $user[0]->es;
-	}else{
-		return false;
-	}
-}
-function setIp($userRowID)
-{
-	$ip = getRealIP();
-	$ch = curl_init('http://orekacloud.com/p/custom_functions/217/set_ip.php');
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST'); 
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, '{"user":'.$userRowID.',"ip":"'.$ip.'"}');
-    $ch_response = curl_exec($ch);
+// function verifyIp($theip)
+// {
+// 	global $oreka;
+// 	//$ip = getRealIP();
+// 	$ip = $theip;
+// 	$user = $oreka->getByField('-'.$ip.'-','ips_user',1,1,1,'created','downward');
+// 	if (is_array($user)) {
+// 		return $user[0]->es;
+// 	}else{
+// 		return false;
+// 	}
+// }
+// function setIp($userRowID)
+// {
+// 	$ip = getRealIP();
+// 	$ch = curl_init('http://orekacloud.com/p/custom_functions/217/set_ip.php');
+// 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST'); 
+//     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//     curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+//     curl_setopt($ch, CURLOPT_POSTFIELDS, '{"user":'.$userRowID.',"ip":"'.$ip.'"}');
+//     $ch_response = curl_exec($ch);
     
-    curl_close($ch);
-    return $ch_response;
-}
+//     curl_close($ch);
+//     return $ch_response;
+// }
 ?>

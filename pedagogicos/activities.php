@@ -1,24 +1,16 @@
 <?
-$actividades = $oreka->getRows($thecontent->{"acticomp".$i.$sufix});
+$actividades = $contenido->actividades_complementarias;
 if(!is_array($actividades)){$actividades=array($actividades);}
 //$actividades = order_array_by_field($actividades,"orden-".$cat);
 ?>
 <section class="act_comp">
-				<h2><?=$language->tr15_langs?></h2>
+				<h2>ACTIVIDADES COMPLEMENTARIAS</h2>
 				<ul class="carrousel_act" id="car_<?=$i?>">
-				<?php for ($x=0; $x<count($actividades); $x++) { 
-				//echo $actividades[$x]."-".get_campo_adicional($pest,$actividades[$x],0)." - ".$thecontent[$i]."<br>";
-					$myac = $actividades[$x]->es;
-					$link = ($myac->link_actcomp==""||$myac->link_actcomp==" ")?"javascript:;" : $myac->link_actcomp;
-					if($link!="javascript:;"){
-						if(strpos($link, "http")===false){
-							$link = "http://".$link;
-						}
-					}
+				<?php 
+					for ($x=0; $x<count($actividades); $x++) { 
+					$myac = $actividades[$x];
 				?>
-					<li class="general-scroll">
-						<a target="_BLANK" href="<?=$link?>"><h3><?=$myac->desc_actcomp?></h3></a>
-					</li>
+					<li class="general-scroll"><a href="javascript:;"><h3><?=$myac->post_title?></h3></a></li>
 				<?php } ?>
 				</ul>
 			</section>

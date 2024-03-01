@@ -15,7 +15,7 @@
 				<li><figure><img style="width:140px;" src="<?=dev($gnrl->logone_gnrl)?>"></figure></li>
 				<li><figure><img style="width:140px;" src="<?=dev($gnrl->logtwo_gnrl)?>"></figure></li>
 			</ul>
-			<a href="<?=$_GET['lang']?>/informacion/12/cinescuela-21815" class="btn_more" onClick="ga('send', 'event', 'Banner home', 'click','Descubre mas - Cinescuela')"><?=$gnrl->textbutton_gnrl?></a>
+			<a href="<?=$_GET['lang']?>/informacion/12/cinescuela-10190" class="btn_more" onClick="ga('send', 'event', 'Banner home', 'click','Descubre mas - Cinescuela')"><?=$gnrl->textbutton_gnrl?></a>
 		</div>
 		<span class="overlay"></span>
 	</article><!--Fin Banner pie de pagina-->
@@ -23,7 +23,7 @@
 	<!--Menu principal pie de pagina-->
 	<nav class="main_menu_footer">
 		<ul>
-        	<li><a <?php if($_GET['cat']==12){ echo 'class="active"'; } ?> href="<?=$_GET['lang']?>/informacion/12/cinescuela-21815"><span></span>Cinescuela<hr></a></li><!--
+        	<li><a <?php if($_GET['cat']==12){ echo 'class="active"'; } ?> href="<?=$_GET['lang']?>/informacion/12/cinescuela-10190"><span></span>Cinescuela<hr></a></li><!--
 		 --><li><a <?php if($_GET['cat']==19743){ echo 'class="active"'; } ?> href="<?=$_GET['lang']?>/peliculas"><span></span><?=find_array($json,2, $lang_ct)?><hr></a></li><!--
 		 --><li><a <?php if($_GET['cat']==19744){ echo 'class="active"'; } ?> href="<?=$_GET['lang']?>/ciclos"><span></span><?=find_array($json,4, $lang_ct)?><hr></a></li><!--
 		 --><li><a <?php if($_GET['cat']==15){ echo 'class="active"'; } ?> href="<?=$_GET['lang']?>/educacion"><span></span><?=find_array($json,5, $lang_ct)?><hr></a></li><!--
@@ -49,9 +49,9 @@
 	<!--Fin Pie de pagina-->
 	
 </div><!--Fin contenedor principal-->
-<script src="js/oreka.js?1.1.2"></script>
-<script src="js/interface.js?1.1.2"></script>
-<script src="js/forms.js?1.1.2"></script>
+<script src="js/oreka.js?v=<?=time()?>"></script>
+<script src="js/interface.js?v=<?=time()?>"></script>
+<script src="js/forms.js?v=<?=time()?>"></script>
 </body>
 </html>
 <?php

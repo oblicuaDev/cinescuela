@@ -38,17 +38,17 @@ RewriteRule ^([esfr]+)/pelicula/([A-Za-z0-9-]+)-([0-9]+)/Play$ player.php?cat=19
 RewriteRule ^([esfr]+)/ciclos$ cycles.php?cat=19744&lang=$1 [L,END]
 RewriteRule ^([esfr]+)/ciclos/$ cycles.php?cat=19744&lang=$1 [L,END]
 
-RewriteRule ^([esfr]+)/ciclo/([A-Za-z0-9-]+)-([0-9]+)$ cycle.php?cat=19744&rowID=$3&lang=$1 [L,END]
+RewriteRule ^([esfr]+)/ciclo/([A-Za-z0-9-]+)-([0-9]+)$ cycle.php?cycleID=$3&lang=$1 [L,END]
 
-RewriteRule ^([esfr]+)/actualidad$ blog.php?cat=16&lang=$1 [L,END]
-RewriteRule ^([esfr]+)/actualidad/$ blog.php?cat=16&lang=$1 [L,END]
-RewriteRule ^([esfr]+)/actualidad/pagina-([0-9]+)$ blog.php?cat=16&page=$2&lang=$1 [L,END]
+RewriteRule ^([esfr]+)/actualidad$ blog.php?cat=9&lang=$1 [L,END]
+RewriteRule ^([esfr]+)/actualidad/$ blog.php?cat=9&lang=$1 [L,END]
+RewriteRule ^([esfr]+)/actualidad/pagina-([0-9]+)$ blog.php?cat=9&page=$2&lang=$1 [L,END]
 
-RewriteRule ^([esfr]+)/educacion$ blog.php?cat=15&lang=$1 [L,END]
-RewriteRule ^([esfr]+)/educacion/$ blog.php?cat=15&lang=$1 [L,END]
-RewriteRule ^([esfr]+)/educacion/pagina-([0-9]+)$ blog.php?cat=15&page=$2&lang=$1 [L,END]
+RewriteRule ^([esfr]+)/educacion$ blog.php?cat=10&lang=$1 [L,END]
+RewriteRule ^([esfr]+)/educacion/$ blog.php?cat=10&lang=$1 [L,END]
+RewriteRule ^([esfr]+)/educacion/pagina-([0-9]+)$ blog.php?cat=10&page=$2&lang=$1 [L,END]
 
-RewriteRule ^([esfr]+)/informacion/([0-9]+)/([A-Za-z0-9-]+)-([0-9]+)$ info.php?cat=$2&rowID=$4&lang=$1 [L,END]
+RewriteRule ^([esfr]+)/informacion/([0-9]+)/([A-Za-z0-9-]+)-([0-9]+)$ info.php?cat=$2&pageID=$4&lang=$1 [L,END]
 
 RewriteRule ^([esfr]+)/usuario/([A-Za-z0-9-]+)$ dashboard.php?lang=$1 [L,END]
 

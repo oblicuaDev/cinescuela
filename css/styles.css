@@ -1130,8 +1130,9 @@ b, strong{
 }
 .list_movies > article a{
 	display: block;
+	width: 100%;
 }
-.list_movies > article figure{
+.list_movies > article img{
 	display: block;
 	position: absolute;
 	width: 100%;
@@ -1142,7 +1143,7 @@ b, strong{
 	z-index: 1;
 	transition:all 0.5s ease;
 }
-.list_movies > article a:hover figure{
+.list_movies > article a:hover img{
 	transform:scale(1.1);
 }
 .list_movies > article div{
