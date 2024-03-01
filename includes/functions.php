@@ -41,21 +41,30 @@ function create_metas(){
 	$canonicalURL = "http://".$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI];
 	global $metas, $urlMap;
 	$ret = '';
-	if(!isset($_GET['seotype'])){
+	if(isset($_GET['cat'])){
+		$category=$cinescuela->query('categories/'.$_GET['cat']);
+		$category=$category['response'];
+	}
+	if(!isset($_GET['seotype']) && !isset($_GET['pageID']) && !isset($_GET['postID'])){
 		$metas['words']=$gnrl->keywseo_meta;
 		$metas['desc']=$gnrl->acf->metadseo_meta;
 		$metas['title']=$gnrl->titseo_meta;
 		$metas['img']=$gnrl->acf->imgogseo_meta;
+	}elseif(isset($_GET['pageID'])){
+		$rows=$cinescuela->query('pages/'.$_GET['pageID']);
+		$metas['words']=$rows['response']->acf->palabras_clave_de_esta_publicacion;
+		$metas['desc']=$rows['response']->acf->meta_descripcion;
+		$metas['title']=$rows['response']->acf->titulo_de_la_ventana." - ".$gnrl->acf->titulo_de_la_ventana;
+		$metas['img']=$rows['response']->acf->imagen_para_el_open_graph;
+	}elseif(isset($_GET['postID'])){
+		$rows=$cinescuela->query('posts/'.$_GET['postID']);
+		
 	}else{
 		if(!( isset($_GET['cat']) && isset($_GET['rowID']) ) ){
 			$metas['words']=$gnrl->acf->palabras_clave_de_esta_publicacion;
 			$metas['desc']=$gnrl->acf->meta_descripcion;
 			$metas['title']=$gnrl->acf->titulo_de_la_ventana;
 			$metas['img']=$gnrl->acf->imagen_para_el_open_graph;
-		}
-		if(isset($_GET['cat'])){
-			$category=$cinescuela->query('categories/'.$_GET['cat']);
-			$category=$category['response'];
 		}
 		if(isset($_GET['rowID'])){
 			$rows=$cinescuela->query('posts/'.$_GET['rowID']);
@@ -64,13 +73,7 @@ function create_metas(){
 			$metas['title']=$rows['response']->acf->titulo_de_la_ventana." - ".$gnrl->acf->titulo_de_la_ventana;
 			$metas['img']=$rows['response']->acf->imagen_para_el_open_graph;
 		}
-		if(isset($_GET['pageID'])){
-			$rows=$cinescuela->query('pages/'.$_GET['pageID']);
-			$metas['words']=$rows['response']->acf->palabras_clave_de_esta_publicacion;
-			$metas['desc']=$rows['response']->acf->meta_descripcion;
-			$metas['title']=$rows['response']->acf->titulo_de_la_ventana." - ".$gnrl->acf->titulo_de_la_ventana;
-			$metas['img']=$rows['response']->acf->imagen_para_el_open_graph;
-		}
+		
 	}
 
 	$ret = '<meta charset="utf-8">' . PHP_EOL;
@@ -104,10 +107,10 @@ function create_metas(){
 	$ret .= "\n\tdocument.createElement('nav');\n\tdocument.createElement('article');";
 	$ret .= "\n</script>\n";
 	$ret .= "\n<![endif]-->\n";
+	$ret .= $metas['analytics'];
 	echo $ret;
 }
-function get_alias($String)
-{
+function get_alias($String){
 	$String = html_entity_decode($String); // Traduce codificación
 
 	$String=str_replace("¡","&#161;",$String);//Signo de exclamación abierta.&iexcl;

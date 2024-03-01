@@ -48,7 +48,8 @@ RewriteRule ^([esfr]+)/educacion$ blog.php?cat=10&lang=$1 [L,END]
 RewriteRule ^([esfr]+)/educacion/$ blog.php?cat=10&lang=$1 [L,END]
 RewriteRule ^([esfr]+)/educacion/pagina-([0-9]+)$ blog.php?cat=10&page=$2&lang=$1 [L,END]
 
-RewriteRule ^([esfr]+)/informacion/([0-9]+)/([A-Za-z0-9-]+)-([0-9]+)$ info.php?cat=$2&pageID=$4&lang=$1 [L,END]
+RewriteRule ^([esfr]+)/informacion/([0-9]+)/([A-Za-z0-9-]+)-([0-9]+)$ info.php?cat=$2&postID=$4&lang=$1 [L,END]
+RewriteRule ^([esfr]+)/cinescuela-([0-9]+)$ info.php?cat=12&pageID=$2&lang=$1 [L,END]
 
 RewriteRule ^([esfr]+)/usuario/([A-Za-z0-9-]+)$ dashboard.php?lang=$1 [L,END]
 

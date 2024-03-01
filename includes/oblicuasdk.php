@@ -40,6 +40,7 @@ class Cinescuela
         }
         $query_string = http_build_query($query);
         $url = "{$this->domain}{$endpoint}?{$query_string}";
+        $url = urldecode($url);
          // Realizar la solicitud HEAD para obtener solo los encabezados de respuesta
          $response_headers = get_headers($url, 1);
          // Verificar si la solicitud fue exitosa
@@ -124,11 +125,10 @@ class Cinescuela
     function gHomeInfo() {
         $gnrl = array();
         if (isset($_SESSION[$this->language]['gHomeInfo'])) {
-            $gnrl = $_SESSION['gHomeInfo'];
+            $gnrl = $_SESSION[$this->language]['gHomeInfo'];
         } else {
             $resultES = $this->query("pages/8695");
             $resultFR = $this->query("pages/8769");
-
             $gnrl = array();
 
             function modifyPropertyNames($item) {
@@ -163,9 +163,14 @@ class Cinescuela
     
             $gnrl["es"] = $modifiedDataES;
             $gnrl["fr"] = $modifiedDataFR;
-            $_SESSION['gHomeInfo'] = $gnrl;
+            $_SESSION[$this->language]['gHomeInfo'] = $gnrl[$this->language];
         }
         return $gnrl;
+    }
+
+    function getPages($ids = "", $page = 1, $per_page = 50, $extra = []) {
+        $info = $this->consultarRecursos("pages", $ids, "", "GET", $page, $per_page,  $extra, true);
+        return $info;
     }
     function getPeliculas($ids = "", $page = 1, $per_page = 50, $extra = []) {
         $peliculas = $this->consultarRecursos("cinescuela-movies", $ids, "", "GET", $page, $per_page,  $extra, true);
@@ -176,19 +181,39 @@ class Cinescuela
         return $ciclos;
     }
     function getSliderPrincipales($ids = "") {
-        $slprin = $this->consultarRecursos("cinescuela-slprin");
+        if (isset($_SESSION['getSliderPrincipales'])) {
+            $slprin = $_SESSION['getSliderPrincipales'];
+        } else {
+            $slprin = $this->consultarRecursos("cinescuela-slprin");
+            $_SESSION['getSliderPrincipales'] = $slprin;
+        }
         return $slprin["response"];
     }
     function getSliderSecundarios($ids = "") {
-        $slsec = $this->consultarRecursos("cinescuela-slsec");
+        if (isset($_SESSION['getSliderSecundarios'])) {
+            $slsec = $_SESSION['getSliderSecundarios'];
+        } else {
+            $slsec = $this->consultarRecursos("cinescuela-slsec");
+            $_SESSION['getSliderSecundarios'] = $slsec;
+        }
         return $slsec["response"];
     }
     function getAsignaturas($ids = "") {
-        $slsec = $this->consultarRecursos("cinescuela-subjects");
+        if (isset($_SESSION['getAsignaturas'])) {
+            $slsec = $_SESSION['getAsignaturas'];
+        } else {
+            $slsec = $this->consultarRecursos("cinescuela-subjects");
+            $_SESSION['getAsignaturas'] = $slsec;
+        }
         return $slsec["response"];
     }
     function getTematicas($ids = "") {
-        $slsec = $this->consultarRecursos("cinescuela-tematicas");
+        if (isset($_SESSION['getTematicas'])) {
+            $slsec = $_SESSION['getTematicas'];
+        } else {
+            $slsec = $this->consultarRecursos("cinescuela-tematicas");
+            $_SESSION['getTematicas'] = $slsec;
+        }
         return $slsec["response"];
     }
     function loginCinescuelaUser($username){
@@ -215,10 +240,10 @@ class Cinescuela
         $tools = $this->consultarRecursos("cinescuela-tools", $idTools);
         return $tools;
     }
-    function get_alias($String)
-    {
+    function get_alias($String){
         $String = html_entity_decode($String); // Traduce codificación
 
+        $String = str_replace("%2c", "_", $String); //Signo de exclamación abierta.&iexcl;
         $String = str_replace("¡", "", $String); //Signo de exclamación abierta.&iexcl;
         $String = str_replace("'", "", $String); //Signo de exclamación abierta.&iexcl;
         $String = str_replace("!", "", $String); //Signo de exclamación cerrada.&iexcl;
@@ -244,7 +269,7 @@ class Cinescuela
         $String = str_replace("µ", "-", $String); //Signo de micro.&micro;
         $String = str_replace("¶", "-", $String); //Signo de calderón.&para;
         $String = str_replace("·", "-", $String); //Punto centrado.&middot;
-        $String = str_replace("¸", "-", $String); //Cedilla.&cedil;
+        $String = str_replace("¸", "_", $String); //Cedilla.&cedil;
         $String = str_replace("¹", "-", $String); //Superíndice 1.&sup1;
         $String = str_replace("º", "-", $String); //Indicador ordinal masculino.&ordm;
         $String = str_replace("»", "-", $String); //Signo de comillas francesas de cierre.&raquo;

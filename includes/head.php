@@ -1,8 +1,8 @@
 <?php
-	header('Access-Control-Allow-Origin: *');
-	header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-	header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-	header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+	// header('Access-Control-Allow-Origin: *');
+	// header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+	// header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+	// header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 	@session_start();
 	include 'connection.php';
 	$json = read_json($json);
@@ -15,12 +15,12 @@
 	<? if (empty($token) && empty($user)) { ?>
 	<base href="/">
 	<?php } ?>
+	<? create_metas();?>
 	<? if($_SESSION['logged']['cod_us']>0) { ?>
 	<script>ga('create', 'UA-29442208-8', { 'userId': '<?=$_SESSION['logged']['cod_us']."-".$_SESSION['logged']['usu_us']?>' });	 </script>
 	<? }else { ?>
 	<script>ga('create', 'UA-29442208-8','auto');</script>
 	<? } ?>
-	<? create_metas();?>
 	<link rel="icon" href="favicon.ico">
 	<!--Estilos Plugins-->
 	<link href="css/jquery.bxslider.css" rel="stylesheet">

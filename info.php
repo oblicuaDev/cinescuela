@@ -2,7 +2,9 @@
 <!--Contenedor principal-->
 <div id="main_container">
 	<!--Encabezado-->
-	<?php include 'includes/header.php'; ?><!--Fin Encabezado-->
+	<?php 
+		include 'includes/header.php';
+	?><!--Fin Encabezado-->
 
 	<!--Contenido interna-->
 	<article class="intern general">
@@ -10,7 +12,7 @@
 		<span class="nom_secc"><?=$category->name?></span>
         <?php 
 			} 
-		$info=$rows['response'];?>
+			$info=$rows['response'];?>
 		<h2><?=$info->title->rendered?></h2>
         <?
 		$date = DateTime::createFromFormat('d/m/Y', $info->acf->fecha_de_publicacion);
@@ -58,20 +60,42 @@
 		$related = $cinescuela->query("posts","","GET",1,4,['categories' => $_GET['cat']]) ;
 		$related = $related['response'];
 		?>
-		<?php $count=0; for($i=0;$i<count($related);$i++){ $post = $related[$i]; if($post->id!=$_GET['rowID'] && $count<4){$count++;?>
+		<?php 
+		$count = 0; 
+		for ($i = 0; $i < count($related); $i++) {
+			$post = $related[$i]; 
+			if ($post->id != $_GET['rowID'] && $count < 4) {
+				$count++; 
+		?>
 		<article>
-			<figure><a href="<?=$_GET['lang']?>/informacion/<?=$_GET['cat']?>/<?=get_alias($post->title->rendered)?>-<?=$post->id?>" onClick="ga('send', 'event', 'Blog', 'click','Contenido relacionado - <?=$post->title->rendered?>')"><img src="<?=$post->acf->imagen?>" alt="<?=$post->title->rendered?>"></a></figure>
+			<figure>
+				<a href="<?= $_GET['lang'] ?>/informacion/<?= $_GET['cat'] ?>/<?= get_alias($post->title->rendered) ?>-<?= $post->id ?>" onClick="ga('send', 'event', 'Blog', 'click','Contenido relacionado - <?= $post->title->rendered ?>')">
+					<img src="<?= $post->acf->imagen ?>" alt="<?= $post->title->rendered ?>">
+				</a>
+			</figure>
 			<div>
-            <?
-			$date = new DateTime($post->acf->fecha_de_publicacion);
-			$newD = $date->format('Y-m-d');
-			?>
-				<time datetime="<?=$post->acf->fecha_de_publicacion?>"><?=$newD?></time>
-				<h2><a href="<?=$_GET['lang']?>/informacion/<?=$_GET['cat']?>/<?=get_alias($post->title->rendered)?>-<?=$post->id?>" onClick="ga('send', 'event', 'Blog', 'click','Contenido relacionado - <?=$post->title->rendered?>')"><?=$post->title->rendered?></a></h2>
-				<p><?=$post->descsmall_info?></p>
+				<?php
+				$date = DateTime::createFromFormat('d/m/Y', $post->acf->fecha_de_publicacion);
+				if ($date !== false) {
+					$newD = $date->format('Y-m-d');
+				} else {
+					$newD = "Invalid Date";
+				}
+				?>
+				<time datetime="<?= $newD ?>"><?= $newD ?></time>
+				<h2>
+					<a href="<?= $_GET['lang'] ?>/informacion/<?= $_GET['cat'] ?>/<?= get_alias($post->title->rendered) ?>-<?= $post->id ?>" onClick="ga('send', 'event', 'Blog', 'click','Contenido relacionado - <?= $post->title->rendered ?>')">
+						<?= $post->title->rendered ?>
+					</a>
+				</h2>
+				<p><?= $post->descsmall_info ?></p>
 			</div>
 		</article>
-		<?php }} ?>
+		<?php 
+			}
+		} 
+		?>
+
 	</section><!--Fin Contenido relacionado-->
 	<? } ?>
 

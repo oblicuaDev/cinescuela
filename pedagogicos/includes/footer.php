@@ -5,7 +5,7 @@
 			<div>
 				<h2><a href="../<?=$_GET['lang']?>/" target="_BLANK">Menu Principal</a></h2><button id="btn_menu">open menu</button><!--
 		 --><ul>
-				<li><a href="../<?=$_GET['lang']?>/informacion/12/cinescuela-10190" target="_BLANK">Cinescuela</a></li><!--
+				<li><a href="../<?=$_GET['lang']?>/cinescuela-10190" target="_BLANK">Cinescuela</a></li><!--
 			 --><li><a class="active" href="../<?=$_GET['lang']?>/peliculas" target="_BLANK"><?=$json[2][$lang_j]?></a></li><!--
 			 --><li><a href="../<?=$_GET['lang']?>/ciclos" target="_BLANK"><?=$json[4][$lang_j]?></a></li><!--
 			 --><li><a href="../<?=$_GET['lang']?>/educacion" target="_BLANK"><?=$json[5][$lang_j]?></a></li><!--

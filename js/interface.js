@@ -383,7 +383,7 @@ $(window).resize(function () {
 });
 
 //Oreka SDK
-var OrekaCloud = new O("d1eb63ddc08ca2f41401b60bc6b7fc87*1.3", 0, 0);
+// var OrekaCloud = new O("d1eb63ddc08ca2f41401b60bc6b7fc87*1.3", 0, 0);
 var none = "";
 
 /*
